@@ -1,0 +1,72 @@
+AdMob websites:
+https://firebase.google.com/docs/admob/android/quick-start
+https://console.firebase.google.com/project/wackypong/settings/general/
+ (click the gear icon on the upper left, configure project)
+https://apps.admob.com/#account/appmgmt:
+http://androidcookbook.com/Recipe.seam?recipeId=724&recipeFrom=ViewTOC
+http://www.androidbegin.com/tutorial/integrating-new-google-admob-banner-interstitial-ads/
+
+http://stackoverflow.com/questions/37310684/missing-sdk-extras-google-google-play-services-libproject-folder-after-updat
+https://groups.google.com/forum/#!category-topic/google-admob-ads-sdk/game-engines/djySAXCZ7HE
+https://developers.google.com/android/guides/setup
+
+also, there's a chapter in the libGDX wiki on implementing AdMob in a libGDX environment:
+https://github.com/libgdx/libgdx/wiki/Admob-in-libgdx
+https://github.com/libgdx/libgdx/wiki/Google-Mobile-Ads-in-Libgdx-(replaces-deprecated-AdMob)
+
+Import the google play services libs:
+ * Copy the play services libs from here:
+     C:\Program Files (x86)\Android\android-sdk\extras\google\m2repository\com\google\android\gms
+   to a local workspace area
+ * Change each *.aar to *.zip for the highest numbered subdir, & extract
+ * Check .project file and change the name to something meaningful if necessary (eg: from "9.0.2" to "PlayServicesAds.9.0.2"
+   - if the ,project file doesn't exist, copy one from somewhere else. Copy the .classpath file too.
+ * Once the lib is imported, open properties, go to Android tab, and click "is Library"
+ 
+
+Add to AndroidManifest.xml:
+ * as children of "application" element:
+		<meta-data 
+		    android:name="com.google.android.gms.version" 
+		    android:value="@integer/google_play_services_version"/>
+		<activity 
+		    android:name="com.google.android.gms.ads.AdActivity" 
+		    android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+ * as children of "manifest" element:
+		<uses-permission android:name="android.permission.INTERNET"/>
+		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+Add to base gradle.build:
+ * as a dependancy of Android project:
+ 		compile 'com.google.android.gms:play-services-ads:+'
+ * alternately, bring ALL of google play services this way:
+ 		compile 'com.google.android.gms:play-services-ads:+'
+ 
+
+
+
+
+Notes on multiplayer, networking, and peer2peer:
+* Kryonet (https://github.com/EsotericSoftware/kryonet)
+* Google Cloud Messaging (https://developers.google.com/cloud-messaging/) (not portable to Desktop)
+* libGDX networking (https://github.com/libgdx/libgdx/wiki/Networking)
+* AppWarp cloud (example here: http://appwarp.shephertz.com/game-development-center/java-multiplayer-libgdx-tutorial/)
+* Google Play Game Services (example here: https://github.com/TheInvader360/libgdx-gameservices-tutorial) (leaderboards and acheivements)
+* Google Play Game Services (https://developers.google.com/games/services/)
+
+Notes on creating game art:
+* http://www.gamefromscratch.com/post/2013/06/11/Creating-art-for-your-game-when-you-are-a-programmer.aspx
+
+
+Notes from "Java Game Development" tutorials
+ep 4 - he created mainmenu page without ever creating a camera - maybe i don't need one
+ep 5 - create atlas, skin, textures, spritebatch, fonts in screen.show()
+ep 5 - fonts from "BMfont = bitmap font generator" from angelcode.com
+ep 6 - atlas = new TextureAtlas("ui/button.pack");
+ep 6 - skin = new Skin(atlas); <-- just gives a couple images
+ep 6 - draw9patch.bat - convert a png to a 9patch; draw black lines to identify the middle of the 9patch; save *.9.png
+ep 6 - gdx-texturepacker.jar = stand alone program that creates *.pack files
+ep 6 - set buttonup.down drawables via textButtonStyle.up = skin.getDrawable("button_up");
+ep 6 - actor.debug():
+		- call debug() after the actor has been added to a container
+		- add this to render() method (before stage.act()): Table.drawDebug(stage); <-- use static call!
+		

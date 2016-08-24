@@ -1,0 +1,189 @@
+
+textures.pack.png
+size: 512,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Mute_Icon
+  rotate: false
+  xy: 2, 3
+  size: 60, 47
+  orig: 60, 47
+  offset: 0, 0
+  index: -1
+Speaker_Icon
+  rotate: false
+  xy: 265, 2
+  size: 60, 47
+  orig: 60, 47
+  offset: 0, 0
+  index: -1
+ball
+  rotate: false
+  xy: 2, 250
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+ban2
+  rotate: false
+  xy: 2, 184
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+bumper
+  rotate: false
+  xy: 265, 442
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cannon
+  rotate: false
+  xy: 2, 118
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+capture
+  rotate: false
+  xy: 68, 184
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dottedline
+  rotate: false
+  xy: 260, 26
+  size: 3, 480
+  orig: 3, 480
+  offset: 0, 0
+  index: -1
+emptyfile
+  rotate: false
+  xy: 462, 474
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+file
+  rotate: false
+  xy: 199, 216
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+paddle
+  rotate: false
+  xy: 133, 87
+  size: 19, 95
+  split: 6, 6, 6, 6
+  orig: 19, 95
+  offset: 0, 0
+  index: -1
+pause
+  rotate: false
+  xy: 265, 376
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+pinballbumper
+  rotate: false
+  xy: 331, 442
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+spinner
+  rotate: false
+  xy: 2, 52
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+warp
+  rotate: false
+  xy: 265, 246
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 0
+warp
+  rotate: false
+  xy: 265, 181
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 1
+warp
+  rotate: false
+  xy: 265, 116
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 2
+warp
+  rotate: false
+  xy: 265, 51
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 3
+warp
+  rotate: false
+  xy: 154, 120
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 4
+warp
+  rotate: false
+  xy: 154, 55
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 5
+warp2
+  rotate: false
+  xy: 68, 119
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 0
+warp2
+  rotate: false
+  xy: 134, 185
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 1
+warp2
+  rotate: false
+  xy: 265, 311
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 2
+warp2
+  rotate: false
+  xy: 331, 377
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 3
+warp2
+  rotate: false
+  xy: 397, 443
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 4
+warp2
+  rotate: false
+  xy: 68, 54
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: 5

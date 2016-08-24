@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "59545645556",
+    "firebase_url": "https://wackypong.firebaseio.com",
+    "project_id": "wackypong",
+    "storage_bucket": "wackypong.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59545645556:android:ea214d369914393e",
+        "android_client_info": {
+          "package_name": "com.ubduratereptile.wackypong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59545645556-1ug9k9aot42se10dqds69sqgo8257l8c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt1_1Y89L-4kIgkwTqDuW9RqbKxSnj-pA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
