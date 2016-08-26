@@ -64,12 +64,13 @@ public abstract class Hazard extends Actor {
 	/**
 	 * Computes the reflection velocity of an incoming ball and updates the ball velocity
 	 * Reference: http://vobarian.com/collisions/2dcollisions2.pdf
-	 * @param ball
+	 * @param ball the ball
 	 */
 	protected void bounce(Ball ball) {
 		// compute unit normal and tangential vectors based on the collision
 		Vector3 unitNormal = new Vector3(ball.bounds.x - bounds.x, ball.bounds.y - bounds.y, 0);
 		unitNormal.setLength(1);
+		Vector3 normal = new Vector3(unitNormal); // need this below...
 		Vector3 unitTangent = new Vector3(-unitNormal.y, unitNormal.x, 0);
 
 		// decompose the pre-collision velocity into the unit vectors
@@ -79,6 +80,11 @@ public abstract class Hazard extends Actor {
 		// the tangential velocity doesn't change
 		// the normal velocity is reversed
 		ball.velocity.set(unitNormal.scl(-vN).add(unitTangent.scl(vT)));
+
+		// move the ball off the hazard to prevent collision captures
+		normal.scl(ball.bounds.radius + getRadius()).add(bounds.x, bounds.y, 0);
+		ball.bounds.x = normal.x;
+		ball.bounds.y = normal.y;
 	}
 	
 	public String getString() {

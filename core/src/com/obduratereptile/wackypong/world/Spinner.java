@@ -41,6 +41,7 @@ public class Spinner extends Hazard {
 		world.game.playBlip();
 		bounce(ball);
 		//rotate the velocity vector by a random amount
+		//TODO - this may cause collision captures
 		float degrees = ((float)Math.random() * 2*ANGLE) - ANGLE;
 		ball.velocity.rotate(new Vector3(0,0,1), degrees);
 		ball.traversing = this;

@@ -98,9 +98,6 @@ public class Paddle extends Actor {
 		if ((ball.bounds.x - ball.bounds.radius) > getRight()) return false;
 		if ((ball.bounds.y + ball.bounds.radius) < getY()) return false;
 		if ((ball.bounds.y - ball.bounds.radius) > getTop()) return false;
-		Gdx.app.error("WP", "   paddle LL corner = (" + getX() + ", " + getY() + ")");
-		Gdx.app.error("WP", "   paddle UR corner = (" + getRight() + ", " + getTop() + ")");
-		Gdx.app.error("WP", "   ball position = (" + ball.bounds.x + ", " + ball.bounds.y + ")");
 
 		float minY = getY() + getWidth()/2;
 		float maxY = getTop() - getWidth()/2;
@@ -108,23 +105,15 @@ public class Paddle extends Actor {
 		if ((ball.bounds.y > minY) && (ball.bounds.y < maxY)) {
 			// the ball hit in the middle of the paddle
 			ball.velocity.x *= -1;
-			Gdx.app.error("WP", "paddle collision - mid paddle");
 		} else {
 			// get the center of the paddle curve
 			float x = getX() + getWidth()/2;
 			float y = (ball.bounds.y > minY)? maxY:	minY;
-			if (ball.bounds.y > minY) {
-				Gdx.app.error("WP", "paddle collision - top paddle");
-			} else {
-				Gdx.app.error("WP", "paddle collision - bottom paddle");
-			}
 
 			// compute unit normal and tangential vectors based on the collision
 			Vector3 unitNormal = new Vector3(ball.bounds.x-x, ball.bounds.y-y, 0);
 			unitNormal.setLength(1);
-			Gdx.app.error("WP", "   unitNormal = (" + unitNormal.x + ", " + unitNormal.y + ")");
 			Vector3 unitTangent = new Vector3(-unitNormal.y, unitNormal.x, 0);
-			Gdx.app.error("WP", "   unitTangent = (" + unitTangent.x + ", " + unitTangent.y + ")");
 
 			// decompose the pre-collision velocity into the unit vectors
 			float vN = unitNormal.dot(ball.velocity);
@@ -132,9 +121,7 @@ public class Paddle extends Actor {
 
 			// the tangential velocity doesn't change
 			// the normal velocity is reversed
-			Gdx.app.error("WP", "   pre-collision v = (" + ball.velocity.x + ", " + ball.velocity.y + ")");
 			ball.velocity.set(unitNormal.scl(-vN).add(unitTangent.scl(vT)));
-			Gdx.app.error("WP", "   post-collision v = (" + ball.velocity.x + ", " + ball.velocity.y + ")");
 		}
 
 		// move the ball off the paddle to prevent collision captures

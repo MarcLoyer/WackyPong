@@ -165,8 +165,8 @@ public class World extends Group {
 	public void collision(float deltaTime) {
 		for (int i=0; i<ball.size; i++) {
 			Ball bb = ball.get(i);
-			checkFieldCollisions(deltaTime, bb);
-			checkPaddleCollisions(deltaTime, bb);
+			checkFieldCollisions(bb);
+			checkPaddleCollisions(bb);
 			// ball to ball collisions
 			for (int j=i+1; j<ball.size; j++) {
 				bb.collision(deltaTime, ball.get(j));
@@ -252,7 +252,7 @@ public class World extends Group {
 		}
 		cannon.show(player);
 	}
-	private void checkPaddleCollisions(float deltaTime, Ball ball) {
+	private void checkPaddleCollisions(Ball ball) {
 		if (paddle[0].collision(ball)) {
 			game.paddle.play(game.volumeSounds);
 			ball.hit(0);
@@ -268,28 +268,25 @@ public class World extends Group {
 	 * We check if the ball hit the top or bottom of the screen, or any of the hazards
 	 * on the field. If it hit, we change the velocity of the ball and also move it
 	 * away (a little bit) from the object it hit. This prevents double detections.
-	 * @param deltaTime - the time since the last update
 	 * @param ball - the ball
 	 */
-	private void checkFieldCollisions(float deltaTime, Ball ball) {
+	private void checkFieldCollisions(Ball ball) {
 		// top and bottom edges
 		if (ball.bounds.y<(0+ball.bounds.radius)) {
 			ball.velocity.y *= -1;
-			// TODO: move the ball off the wall
-			ball.act(deltaTime); // this doesn't work - need to actually reposition the ball
+			// move the ball off the wall to prevent collision captures
+			ball.bounds.y = 0+ball.bounds.radius;
 			return;
 		}
 		if (ball.bounds.y>(WackyPong.SCREENSIZEY-ball.bounds.radius)) {
 			ball.velocity.y *= -1;
-			// TODO: move the ball off the wall
-			ball.act(deltaTime); // this doesn't work - need to actually reposition the ball
+			// move the ball off the wall to prevent collision captures
+			ball.bounds.y = WackyPong.SCREENSIZEY-ball.bounds.radius;
 			return;
 		}
 		
 		for (int i=0; i<numHazards; i++) {
 			if (hazard[i].collision(ball)) {
-				// TODO: move the ball off the hazard - this needs to move into the hazard.collision method
-				ball.act(deltaTime); // this doesn't work - need to actually reposition the ball
 				return;
 			}
 		}
