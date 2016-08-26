@@ -44,7 +44,7 @@ public class SplashScreen extends Stage implements Screen {
 		game.volumeSounds = game.getVolumeSounds();
 		
 		game.manager = new AssetManager();
-		
+
 		// load our font
 		game.manager.load("my.fnt", BitmapFont.class);
 		

@@ -20,7 +20,9 @@ public class WackyPong extends Game {
 	
 	enum State {PAUSED, RUNNING, GAMEOVER};
 	State gameState = State.PAUSED;
-	
+
+	public Preferences prefs;
+
 	public int player1Score = 0;
 	public int player2Score = 0;
 	
@@ -47,12 +49,12 @@ public class WackyPong extends Game {
     
 	@Override
 	public void create () {
+		prefs = Gdx.app.getPreferences("com.obduratereptile.wackypong.prefs");
 		setScreen(new SplashScreen(this));
 	}
 	
 	public void setVolume(float v) {
 		volume = v;
-		Preferences prefs = Gdx.app.getPreferences("com.obduratereptile.wackypong.prefs");
 		prefs.putFloat("volume", volume);
 		prefs.flush();
 		if (music!=null) {
@@ -61,19 +63,16 @@ public class WackyPong extends Game {
 	}
 	
 	public float getVolume() {
-		Preferences prefs = Gdx.app.getPreferences("com.obduratereptile.wackypong.prefs");
 		return prefs.getFloat("volume", 1.0f);
 	}
 	
 	public void setVolumeSounds(float v) {
 		volumeSounds = v;
-		Preferences prefs = Gdx.app.getPreferences("com.obduratereptile.wackypong.prefs");
 		prefs.putFloat("volumeSounds", volumeSounds);
 		prefs.flush();
 	}
 	
 	public float getVolumeSounds() {
-		Preferences prefs = Gdx.app.getPreferences("com.obduratereptile.wackypong.prefs");
 		return prefs.getFloat("volumeSounds", 1.0f);
 	}
 	
