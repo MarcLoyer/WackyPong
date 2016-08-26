@@ -169,7 +169,9 @@ public class World extends Group {
 			checkPaddleCollisions(bb);
 			// ball to ball collisions
 			for (int j=i+1; j<ball.size; j++) {
-				bb.collision(deltaTime, ball.get(j));
+				if (bb.collision(ball.get(j))) {
+					game.clink.play(game.volumeSounds);
+				}
 			}
 			checkGoal(bb);
 		}

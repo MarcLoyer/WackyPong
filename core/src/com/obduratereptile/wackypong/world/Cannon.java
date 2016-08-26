@@ -71,6 +71,9 @@ public class Cannon extends Image {
 	public void hide() {
 		if (isHidden) return;
 		//TODO: play a sound effect
+		//TODO: known bug - if hide() is called while the cannon is being hidden, then we wind up
+		// having more show()s than hide()s, and the cannon marches down the screen. Instead of
+		// booleans, we should keep a count, and re-show/re-hide until the count reaches zero.
 		isHidden = true;
 		setTouchable(Touchable.disabled);
 		addAction(Actions.sequence(

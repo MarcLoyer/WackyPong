@@ -69,23 +69,22 @@ public class Ball extends Actor {
 		}
 	}
 
-	public boolean collision(float deltaTime, Ball ball) {
+	public boolean collision(Ball ball) {
 		if (!bounds.overlaps(ball.bounds)) return false;
-		//TODO: play a sound effect
 		bounce(ball);
-		//TODO: need to move the balls away from each other to avoid stickiness
 		return true;
 	}
 	
 	/**
 	 * Computes the reflection velocity of two colliding balls and updates the velocities of both
 	 * Reference: http://vobarian.com/collisions/2dcollisions2.pdf
-	 * @param ball
+	 * @param ball the ball
 	 */
 	public void bounce(Ball ball) {
 		// compute unit normal and tangential vectors based on the collision
 		Vector3 unitNormal = new Vector3(ball.bounds.x - bounds.x, ball.bounds.y - bounds.y, 0);
 		unitNormal.setLength(1);
+		Vector3 normal = new Vector3(unitNormal); // need this below...
 		Vector3 unitTangent = new Vector3(-unitNormal.y, unitNormal.x, 0);
 
 		// decompose the pre-collision velocities into the unit vectors
@@ -102,6 +101,11 @@ public class Ball extends Actor {
 		
 		velocity.set(tempNormal.scl(vN2).add(tempTangent.scl(vT1)));
 		ball.velocity.set(unitNormal.scl(vN1).add(unitTangent.scl(vT2)));
+
+		// move the ball off the hazard to prevent collision captures
+		normal.scl(ball.bounds.radius + bounds.radius).add(bounds.x, bounds.y, 0);
+		ball.bounds.x = normal.x;
+		ball.bounds.y = normal.y;
 	}
 
 	public void setBallPosition(float x, float y) {
