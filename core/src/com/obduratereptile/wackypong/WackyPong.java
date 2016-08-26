@@ -17,7 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 public class WackyPong extends Game {
 	public static final float SCREENSIZEX = 800;
 	public static final float SCREENSIZEY = 480;
-	
+
+	private ActionResolver actionResolver;
+
 	enum State {PAUSED, RUNNING, GAMEOVER};
 	State gameState = State.PAUSED;
 
@@ -46,7 +48,15 @@ public class WackyPong extends Game {
 	public Sound clink;
 	public Sound paddle;
 	//TODO: need sounds for showing/hiding the cannon, launches, and ball collisions
-    
+
+	public WackyPong(ActionResolver actionResolver) {
+		this.actionResolver = actionResolver;
+	}
+
+	public void showAd() {
+		actionResolver.showOrLoadInterstitialAd();
+	}
+
 	@Override
 	public void create () {
 		prefs = Gdx.app.getPreferences("com.obduratereptile.wackypong.prefs");

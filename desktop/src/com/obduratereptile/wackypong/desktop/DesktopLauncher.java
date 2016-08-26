@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+import com.obduratereptile.wackypong.ActionResolver;
 import com.obduratereptile.wackypong.WackyPong;
 
 public class DesktopLauncher {
@@ -25,6 +26,6 @@ public class DesktopLauncher {
 
         
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new WackyPong(), config);
+		new LwjglApplication(new WackyPong(new ActionResolverDesktop()), config);
 	}
 }
