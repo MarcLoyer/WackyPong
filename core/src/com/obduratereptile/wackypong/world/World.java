@@ -161,8 +161,13 @@ public class World extends Group {
 		cannon.setX(w/2 - cannon.getWidth()/2);
 		cannon.setY(h - cannon.getHeight());
 	}
+
+	public void act(float deltaTime) {
+		super.act(deltaTime);
+		collision();
+	}
 	
-	public void collision(float deltaTime) {
+	public void collision() {
 		for (int i=0; i<ball.size; i++) {
 			Ball bb = ball.get(i);
 			checkFieldCollisions(bb);

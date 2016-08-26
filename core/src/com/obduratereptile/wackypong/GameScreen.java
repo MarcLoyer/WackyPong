@@ -125,9 +125,6 @@ public class GameScreen extends Stage implements Screen {
 		draw();
 		game.batch.end();
 		
-		// update the game elements
-		world.collision(delta);
-		
 		// get user input
 		getPlayerInput();
 		
