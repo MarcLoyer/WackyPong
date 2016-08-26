@@ -50,6 +50,7 @@ public class MainMenuScreen extends Stage implements Screen {
 		});
 		addActor(btn);
 
+/*
 		btn = new TextButton("Ad", skin, "default");
 		btn.setBounds(WackyPong.SCREENSIZEX / 2 + 150, WackyPong.SCREENSIZEY - 300, 100, 30);
 		btn.addListener(new ClickListener() {
@@ -58,6 +59,7 @@ public class MainMenuScreen extends Stage implements Screen {
 			}
 		});
 		addActor(btn);
+*/
 
 		btn = new TextButton("Play", skin, "default");
 		btn.setBounds(WackyPong.SCREENSIZEX / 2 - 50, WackyPong.SCREENSIZEY - 350, 100, 30);

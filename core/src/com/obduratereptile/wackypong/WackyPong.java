@@ -20,14 +20,15 @@ public class WackyPong extends Game {
 
 	private ActionResolver actionResolver;
 
-	enum State {PAUSED, RUNNING, GAMEOVER};
+	enum State {PAUSED, RUNNING, GAMEOVER}
 	State gameState = State.PAUSED;
 
 	public Preferences prefs;
 
+	public int gameCount = 0;
 	public int player1Score = 0;
 	public int player2Score = 0;
-	
+
 	public AssetManager manager;
 	public TextureAtlas atlas;
 	public SpriteBatch batch;

@@ -148,10 +148,12 @@ public class GameScreen extends Stage implements Screen {
 					gameState = RUNNING;
 				}
 				if (s.equals("new game")) {
+					if (++game.gameCount%5 == 0) game.showAd();
 					restart();
 					gameState = RUNNING;
 				}
 				if (s.equals("quit")) {
+					if (++game.gameCount%5 == 0) game.showAd();
 					game.setScreen(new MainMenuScreen(game));
 					dispose();
 				}
