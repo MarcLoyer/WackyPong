@@ -30,7 +30,7 @@ public class World extends Group {
 		// initialize the game objects...
 		game.player1Score = 0;
 		game.player2Score = 0;
-		cannon = new Cannon(this, game.SCREENSIZEX/2, game.SCREENSIZEY, 40.0f);
+		cannon = new Cannon(this, WackyPong.SCREENSIZEX/2, WackyPong.SCREENSIZEY, 40.0f);
 		addActor(cannon);
 		launchBall(0);
 		
@@ -232,7 +232,7 @@ public class World extends Group {
 	
 	/**
 	 * Checks all existing balls to see if there are any that are uncaptured
-	 * @return
+	 * @return true if no balls are moving
 	 */
 	public boolean noMovingBalls() {
 		ArrayIterator<Ball> b = new ArrayIterator<Ball>(ball);
@@ -253,90 +253,23 @@ public class World extends Group {
 		cannon.show(player);
 	}
 	private void checkPaddleCollisions(float deltaTime, Ball ball) {
-		float minX, minY, maxX, maxY;
-		
-		minX = paddle[0].getX() - ball.bounds.radius;
-		maxX = paddle[0].getRight() + ball.bounds.radius;
-		minY = paddle[0].getY() - ball.bounds.radius;
-		maxY = paddle[0].getTop() + ball.bounds.radius;
-		if ((ball.bounds.x > minX) && (ball.bounds.x < maxX) && (ball.bounds.y > minY) && (ball.bounds.y < maxY)) {
+		if (paddle[0].collision(ball)) {
 			game.paddle.play(game.volumeSounds);
 			ball.hit(0);
-			minY = paddle[0].getY() + paddle[0].getHeight()/5;
-			maxY = paddle[0].getY() + 4*paddle[0].getHeight()/5;
-			if ((ball.bounds.y > minY) && (ball.bounds.y < maxY)) {
-				ball.velocity.x *= -1;
-			} else {
-				float x, y;
-				// get the center of the paddle curve
-				x = paddle[0].getX() + paddle[0].getHeight()/2;
-				y = (ball.bounds.y > minY)? 
-						paddle[0].getY() + 4*paddle[0].getHeight()/5: 
-						paddle[0].getY() + paddle[0].getHeight()/5;
-				
-				// compute unit normal and tangential vectors based on the collision
-				Vector3 unitNormal = new Vector3(ball.bounds.x-x, ball.bounds.y-y, 0);
-				unitNormal.setLength(1);
-				Vector3 unitTangent = new Vector3(-unitNormal.y, unitNormal.x, 0);
-				
-				// decompose the pre-collision velocity into the unit vectors
-				float vN = unitNormal.dot(ball.velocity);
-				float vT = unitTangent.dot(ball.velocity);
-				
-				// the tangential velocity doesn't change
-				// the normal velocity is reversed
-				ball.velocity.set(unitNormal.scl(-vN).add(unitTangent.scl(vT)));
-			}
-			
-			// TODO: move the ball off the paddle
-			ball.bounds.x += ball.velocity.x * deltaTime; // this doesn't work - need to actually reposition the ball
-			ball.bounds.y += ball.velocity.y * deltaTime;
 		}
-		
-		minX = paddle[1].getX() - ball.bounds.radius;
-		maxX = paddle[1].getRight() + ball.bounds.radius;
-		minY = paddle[1].getY() - ball.bounds.radius;
-		maxY = paddle[1].getTop() + ball.bounds.radius;
-		if ((ball.bounds.x > minX) && (ball.bounds.x < maxX) && (ball.bounds.y > minY) && (ball.bounds.y < maxY)) {
+
+		if (paddle[1].collision(ball)) {
 			game.paddle.play(game.volumeSounds);
 			ball.hit(1);
-			minY = paddle[1].getY() + paddle[1].getHeight()/5;
-			maxY = paddle[1].getY() + 4*paddle[1].getHeight()/5;
-			if ((ball.bounds.y > minY) && (ball.bounds.y < maxY)) {
-				ball.velocity.x *= -1;
-			} else {
-				float x, y;
-				// get the center of the paddle curve
-				x = paddle[1].getX() + paddle[1].getHeight()/2;
-				y = (ball.bounds.y > minY)? 
-						paddle[1].getY() + 4*paddle[1].getHeight()/5: 
-						paddle[1].getY() + paddle[1].getHeight()/5;
-				
-				// compute unit normal and tangential vectors based on the collision
-				Vector3 unitNormal = new Vector3(ball.bounds.x-x, ball.bounds.y-y, 0);
-				unitNormal.setLength(1);
-				Vector3 unitTangent = new Vector3(-unitNormal.y, unitNormal.x, 0);
-				
-				// decompose the pre-collision velocity into the unit vectors
-				float vN = unitNormal.dot(ball.velocity);
-				float vT = unitTangent.dot(ball.velocity);
-				
-				// the tangential velocity doesn't change
-				// the normal velocity is reversed
-				ball.velocity.set(unitNormal.scl(-vN).add(unitTangent.scl(vT)));
-			}
-			
-			// TODO: move the ball off the paddle
-			ball.bounds.x += ball.velocity.x * deltaTime; // this doesn't work - need to actually reposition the ball
-			ball.bounds.y += ball.velocity.y * deltaTime;
 		}
+
 	}
 	/**
 	 * We check if the ball hit the top or bottom of the screen, or any of the hazards
 	 * on the field. If it hit, we change the velocity of the ball and also move it
 	 * away (a little bit) from the object it hit. This prevents double detections.
-	 * @param deltaTime
-	 * @param ball
+	 * @param deltaTime - the time since the last update
+	 * @param ball - the ball
 	 */
 	private void checkFieldCollisions(float deltaTime, Ball ball) {
 		// top and bottom edges
@@ -358,7 +291,7 @@ public class World extends Group {
 				// TODO: move the ball off the hazard - this needs to move into the hazard.collision method
 				ball.act(deltaTime); // this doesn't work - need to actually reposition the ball
 				return;
-			};
+			}
 		}
 	}
 	
