@@ -171,8 +171,7 @@ public class GameScreen extends Stage implements Screen {
 	public void restart() {
 		game.player1Score = 0;
 		game.player2Score = 0;
-		world.removeAllBalls();
-		world.launchBall(0);
+		world.restart();
 	}
 	
 	/**

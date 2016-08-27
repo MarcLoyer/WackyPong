@@ -19,7 +19,11 @@ public abstract class Hazard extends Actor {
 	public Hazard(World w, float x, float y) {
 		this(w, x, y, 10);
 	}
-	
+
+	public void restart() {
+		return;
+	}
+
 	public abstract Hazard copy();
 	
 	@Override

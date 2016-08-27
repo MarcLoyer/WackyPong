@@ -219,7 +219,13 @@ public class World extends Group {
 			if (noMovingBalls()) launchBall(1);
 		}
 	}
-	
+
+	public void restart() {
+		for (Hazard h: hazard) h.restart();
+		removeAllBalls();
+		launchBall(0);
+	}
+
 	public void removeBall(Ball b) {
 		ball.removeValue(b, true);
 		removeActor(b);
@@ -259,44 +265,50 @@ public class World extends Group {
 		}
 		cannon.show(player);
 	}
-	private void checkPaddleCollisions(Ball ball) {
+	private boolean checkPaddleCollisions(Ball ball) {
 		if (paddle[0].collision(ball)) {
 			game.paddle.play(game.volumeSounds);
 			ball.hit(0);
+			return true;
 		}
 
 		if (paddle[1].collision(ball)) {
 			game.paddle.play(game.volumeSounds);
 			ball.hit(1);
+			return true;
 		}
 
+		return false;
 	}
+
 	/**
 	 * We check if the ball hit the top or bottom of the screen, or any of the hazards
 	 * on the field. If it hit, we change the velocity of the ball and also move it
 	 * away (a little bit) from the object it hit. This prevents double detections.
 	 * @param ball - the ball
+	 * @return returns true if the ball collided with something
 	 */
-	private void checkFieldCollisions(Ball ball) {
+	private boolean checkFieldCollisions(Ball ball) {
 		// top and bottom edges
 		if (ball.bounds.y<(0+ball.bounds.radius)) {
 			ball.velocity.y *= -1;
 			// move the ball off the wall to prevent collision captures
 			ball.bounds.y = 0+ball.bounds.radius;
-			return;
+			return true;
 		}
 		if (ball.bounds.y>(WackyPong.SCREENSIZEY-ball.bounds.radius)) {
 			ball.velocity.y *= -1;
 			// move the ball off the wall to prevent collision captures
 			ball.bounds.y = WackyPong.SCREENSIZEY-ball.bounds.radius;
-			return;
+			return true;
 		}
 		
 		for (int i=0; i<numHazards; i++) {
 			if (hazard[i].collision(ball)) {
-				return;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	public void generateHazards() {
@@ -368,4 +380,15 @@ public class World extends Group {
 		}
 		return false;
 	}
+
+	// Some thoughts on networking the game...
+	//  1) need a message to setup the game - this is just sending the type and position of all hazards
+	//  2) the only updates that need to be sent are when:
+	//       - the local player's paddle moves,
+	//       - a ball collides with something,
+	//       - a capture hazard captures a ball,
+	//       - a new ball is launched or ready to be launched,
+	//       - somebody scores (and a ball is removed),
+	//       - end of game / restart game
+	//  3) explicitly, there is no need to send an update about a ball if it's velocity did not change
 }

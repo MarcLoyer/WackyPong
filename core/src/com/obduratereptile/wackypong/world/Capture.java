@@ -23,7 +23,13 @@ public class Capture extends Hazard {
 	public Capture copy() {
 		return new Capture(world, bounds.x, bounds.y, bounds.radius);
 	}
-	
+
+	@Override
+	public void restart() {
+		super.restart();
+		caught = false;
+	}
+
 	@Override
 	public boolean collision(Ball ball) {
 		World world = (World)getParent();

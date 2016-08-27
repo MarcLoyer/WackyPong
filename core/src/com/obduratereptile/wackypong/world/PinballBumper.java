@@ -19,7 +19,7 @@ public class PinballBumper extends Hazard {
 	public PinballBumper copy() {
 		return new PinballBumper(world, bounds.x, bounds.y, bounds.radius);
 	}
-	
+
 	@Override
 	public boolean collision(Ball ball) {
 		if (!bounds.overlaps(ball.bounds)) return false;
