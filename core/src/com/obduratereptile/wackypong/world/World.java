@@ -384,11 +384,15 @@ public class World extends Group {
 	// Some thoughts on networking the game...
 	//  1) need a message to setup the game - this is just sending the type and position of all hazards
 	//  2) the only updates that need to be sent are when:
-	//       - the local player's paddle moves,
-	//       - a ball collides with something,
-	//       - a capture hazard captures a ball,
-	//       - a new ball is launched or ready to be launched,
-	//       - somebody scores (and a ball is removed),
-	//       - end of game / restart game
+	//       - the local player's paddle moves (master <--> slave),
+	//       - a ball collides with something (master --> slave),
+	//       - a capture hazard captures a ball (master --> slave),
+	//       - a new ball is launched or ready to be launched (master <--> slave),
+	//       - somebody scores (and a ball is removed) (master --> slave),
+	//       - the pause/resume button is pressed (master <--> slave),
+	//       - end of game (master --> slave)
+	//       - restart game (master <--> slave)
 	//  3) explicitly, there is no need to send an update about a ball if it's velocity did not change
+	// Here's google play's help page for implementing multiplayer:
+	//  https://developers.google.com/games/services/android/realtimeMultiplayer
 }

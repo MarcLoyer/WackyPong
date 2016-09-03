@@ -7,13 +7,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.obduratereptile.wackypong.WackyPong;
 
 public class Shrink extends Hazard {
+	private final float SPEED = -360;
+	private final float ANGLE = 30;
+
 	public Sprite img;
-	
+	public float angle;
+
 	public Shrink(World w, float x, float y, float radius) {
 		super(w, x, y, radius);
-		img = world.game.atlas.createSprite("bumper");
-		img.setBounds(bounds.x - bounds.radius, bounds.y - bounds.radius, bounds.radius * 2, bounds.radius * 2);
-		img.setOrigin(bounds.radius,  bounds.radius);
+		img = world.game.atlas.createSprite("shrink");
+		angle = 0;
+		img.setBounds(x - radius, y - radius, radius * 2, radius * 2);
+		img.setOrigin(radius,  radius);
 	}
 	
 	public Shrink(World w, float x, float y) {
@@ -44,40 +49,15 @@ public class Shrink extends Hazard {
 	
 	@Override
 	public void update(float deltaTime) {
-		return;
+		angle += deltaTime * SPEED;
+		img.setRotation(angle);
 	}
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		scale();
 		img.draw(batch);
 	}
-	
-	/**
-	 * poor man's animation - scale the hazard down and up based on the deltaTime
-	 */
-	float scaleFactor = 1.0f;
-	float scaleSpeed = 2.5f;
-	boolean scalingDown = true;
-	
-	private void scale() {
-		float delta = Gdx.graphics.getDeltaTime();
-		if (scalingDown) {
-			scaleFactor -= delta * scaleSpeed;
-			if (scaleFactor < 0.3f) {
-				scaleFactor = 0.3f +(0.3f-scaleFactor);
-				scalingDown = false;
-			}
-		} else {
-			scaleFactor += delta * scaleSpeed;
-			if (scaleFactor > 1.0f) {
-				scaleFactor = 1.0f - (scaleFactor-1.0f);
-				scalingDown = true;
-			}
-		}
-		img.setScale(scaleFactor);
-	}
-	
+
 	@Override
 	public void moveTo(float x, float y) {
 		super.moveTo(x, y);

@@ -233,7 +233,10 @@ public class GameScreen extends Stage implements Screen {
 				if ((bb.bounds.x > rightmost.bounds.x) && (bb.velocity.x > 0)) rightmost = bb;
 			}
 		}
-		
+
+		// TODO: make the AIs imperfect
+		// - slow down the paddles?
+		// - inaccurate ball prediction?
 		if ((leftmost!=null) && (numPlayers == 0)) {
 			world.paddle[0].moveTo(new Vector3(0, leftmost.bounds.y, 0));
 		}

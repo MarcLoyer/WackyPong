@@ -3,6 +3,7 @@ package com.obduratereptile.wackypong.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.obduratereptile.wackypong.WackyPong;
@@ -10,55 +11,60 @@ import com.obduratereptile.wackypong.WackyPong;
 public class Paddle extends Actor {
 	private static float WIDTH = 20f;
 	private static float HEIGHT = 100f;
+	private static float HEIGHTSMALL = 60f;
 	private static float SPEED = 800f;
 	
 	World world;
-	public NinePatch img;
+	public Sprite img, imgSmall;
 	public boolean isShrunk;
 	public float target;
 	
 	public Paddle(World world, boolean mirrored) {
 		super();
-		setSize(WIDTH, HEIGHT);
 		this.world = world;
-		img = world.game.atlas.createPatch("paddle");
+
+		img = world.game.atlas.createSprite("paddle");
+		imgSmall = world.game.atlas.createSprite("paddlesmall");
+
+		img.setSize(WIDTH, HEIGHT);
+		imgSmall.setSize(WIDTH, HEIGHTSMALL);
+		setSize(WIDTH, HEIGHT);
+
+		if (mirrored) {
+			img.setPosition(WackyPong.SCREENSIZEX - WIDTH, (WackyPong.SCREENSIZEY - HEIGHT) / 2);
+			imgSmall.setPosition(WackyPong.SCREENSIZEX - WIDTH, (WackyPong.SCREENSIZEY - HEIGHTSMALL) / 2);
+			setPosition(WackyPong.SCREENSIZEX - WIDTH, (WackyPong.SCREENSIZEY - HEIGHT) / 2);
+		} else {
+			img.setPosition(0, (WackyPong.SCREENSIZEY - HEIGHT) / 2);
+			imgSmall.setPosition(0, (WackyPong.SCREENSIZEY - HEIGHTSMALL) / 2);
+			setPosition(0, (WackyPong.SCREENSIZEY - HEIGHT) / 2);
+		}
+
 		this.isShrunk = false;
 		this.target = WackyPong.SCREENSIZEY/2;
 	}
 	
 	public void shrink() {
+		if (isShrunk) return;
 		isShrunk = true;
-		setHeight(HEIGHT*2.0f/3.0f);
+
+		setY(getY() + (HEIGHT - HEIGHTSMALL)/2);
+		setHeight(HEIGHTSMALL);
 	}
 	
 	public void unshrink() {
+		if (!isShrunk) return;
 		isShrunk = false;
+
+		float y = getY() - (HEIGHT - HEIGHTSMALL)/2;
+		if (y<0) y = 0;
+		if (y>(WackyPong.SCREENSIZEY - HEIGHT)) y = WackyPong.SCREENSIZEY - HEIGHT;
+		setY(y);
 		setHeight(HEIGHT);
 	}
 	
-	@Override
-	public void setHeight(float h) {
-		float middle = h - img.getBottomHeight() - img.getTopHeight();
-		if (middle<0) return;
-		img.setMiddleHeight(middle);
-		setY(getY()+(getHeight() - h)/2);
-		super.setHeight(h);
-	}
-	
 	public void moveTo(Vector3 pos) {
-		// the paddle only moves in the y direction. I pass the
-		// full vector in case I want to change that later. This
-		// code offsets the touch by the height of the paddle and
-		// checks the end conditions.
-		float y = pos.y - getHeight()/2;
-		if (y<0) y = 0f;
-		if (y>getParent().getHeight()-getHeight()) y = getParent().getHeight()-getHeight();
-		
-		// This code just moves the paddle directly to the touch:
-		//setY(y);
-		
-		// The paddle will move towards this target:
-		target = y;
+		target = pos.y;
 	}
 	
 	@Override
@@ -69,7 +75,7 @@ public class Paddle extends Actor {
 	
 	public void update(float deltaTime) {
 		// move towards the target...
-		float y = getY();
+		float y = getY() + getHeight()/2;
 		float dy = SPEED * deltaTime;
 		
 		if (y>target) {
@@ -83,14 +89,22 @@ public class Paddle extends Actor {
 			else
 				y += dy;
 		}
-		
-		setY(y);
+
+		if (y<getHeight()/2) y = getHeight()/2;
+		if (y>(WackyPong.SCREENSIZEY - getHeight()/2)) y = WackyPong.SCREENSIZEY - getHeight()/2;
+
+		setY(y - getHeight()/2);
+		img.setY(y - HEIGHT/2);
+		imgSmall.setY(y - HEIGHTSMALL/2);
 		return;
 	}
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		img.draw(batch, getX(), getY(), getWidth(), getHeight());
+		if (isShrunk)
+			imgSmall.draw(batch);
+		else
+			img.draw(batch);
 	}
 
 	public boolean collision(Ball ball) {

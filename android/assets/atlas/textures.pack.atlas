@@ -1,189 +1,181 @@
 
 textures.pack.png
-size: 512,512
+size: 1024,1024
 format: RGBA8888
 filter: MipMap,MipMap
 repeat: none
 Mute_Icon
   rotate: false
-  xy: 2, 3
+  xy: 607, 65
   size: 60, 47
   orig: 60, 47
   offset: 0, 0
   index: -1
 Speaker_Icon
   rotate: false
-  xy: 265, 2
+  xy: 673, 131
   size: 60, 47
   orig: 60, 47
   offset: 0, 0
   index: -1
 ball
   rotate: false
-  xy: 2, 250
-  size: 256, 256
-  orig: 256, 256
+  xy: 897, 205
+  size: 54, 54
+  orig: 54, 54
   offset: 0, 0
   index: -1
 ban2
   rotate: false
-  xy: 2, 184
+  xy: 541, 114
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 bumper
   rotate: false
-  xy: 265, 442
-  size: 64, 64
-  orig: 64, 64
+  xy: 7, 358
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
   index: -1
 cannon
   rotate: false
-  xy: 2, 118
+  xy: 541, 48
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 capture
   rotate: false
-  xy: 68, 184
-  size: 64, 64
-  orig: 64, 64
+  xy: 7, 180
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
-  index: -1
+  index: 0
+capture
+  rotate: false
+  xy: 185, 358
+  size: 176, 176
+  orig: 176, 176
+  offset: 0, 0
+  index: 1
 dottedline
   rotate: false
-  xy: 260, 26
+  xy: 2, 54
   size: 3, 480
   orig: 3, 480
   offset: 0, 0
   index: -1
 emptyfile
   rotate: false
-  xy: 462, 474
+  xy: 953, 337
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 file
   rotate: false
-  xy: 199, 216
+  xy: 541, 14
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 paddle
   rotate: false
-  xy: 133, 87
-  size: 19, 95
-  split: 6, 6, 6, 6
-  orig: 19, 95
+  xy: 897, 261
+  size: 54, 273
+  orig: 54, 273
+  offset: 0, 0
+  index: -1
+paddlesmall
+  rotate: false
+  xy: 953, 371
+  size: 54, 163
+  orig: 54, 163
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 265, 376
+  xy: 607, 114
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 pinballbumper
   rotate: false
-  xy: 331, 442
-  size: 64, 64
-  orig: 64, 64
+  xy: 185, 180
+  size: 176, 176
+  orig: 176, 176
+  offset: 0, 0
+  index: -1
+warp
+  rotate: false
+  xy: 185, 180
+  size: 176, 176
+  orig: 176, 176
+  offset: 0, 0
+  index: 0
+shrink
+  rotate: false
+  xy: 363, 358
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
   index: -1
 spinner
   rotate: false
-  xy: 2, 52
-  size: 64, 64
-  orig: 64, 64
+  xy: 363, 180
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
   index: -1
 warp
   rotate: false
-  xy: 265, 246
-  size: 63, 63
-  orig: 63, 63
-  offset: 0, 0
-  index: 0
-warp
-  rotate: false
-  xy: 265, 181
-  size: 63, 63
-  orig: 63, 63
+  xy: 541, 358
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
   index: 1
 warp
   rotate: false
-  xy: 265, 116
-  size: 63, 63
-  orig: 63, 63
+  xy: 541, 180
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
   index: 2
 warp
   rotate: false
-  xy: 265, 51
-  size: 63, 63
-  orig: 63, 63
+  xy: 719, 358
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
   index: 3
 warp
   rotate: false
-  xy: 154, 120
-  size: 63, 63
-  orig: 63, 63
+  xy: 719, 180
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
   index: 4
 warp
   rotate: false
-  xy: 154, 55
-  size: 63, 63
-  orig: 63, 63
+  xy: 7, 2
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
   index: 5
-warp2
+warp
   rotate: false
-  xy: 68, 119
-  size: 63, 63
-  orig: 63, 63
+  xy: 185, 2
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
-  index: 0
-warp2
+  index: 6
+warp
   rotate: false
-  xy: 134, 185
-  size: 63, 63
-  orig: 63, 63
+  xy: 363, 2
+  size: 176, 176
+  orig: 176, 176
   offset: 0, 0
-  index: 1
-warp2
-  rotate: false
-  xy: 265, 311
-  size: 63, 63
-  orig: 63, 63
-  offset: 0, 0
-  index: 2
-warp2
-  rotate: false
-  xy: 331, 377
-  size: 63, 63
-  orig: 63, 63
-  offset: 0, 0
-  index: 3
-warp2
-  rotate: false
-  xy: 397, 443
-  size: 63, 63
-  orig: 63, 63
-  offset: 0, 0
-  index: 4
-warp2
-  rotate: false
-  xy: 68, 54
-  size: 63, 63
-  orig: 63, 63
-  offset: 0, 0
-  index: 5
+  index: 7

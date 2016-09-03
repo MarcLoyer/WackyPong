@@ -2,15 +2,16 @@ package com.obduratereptile.wackypong.world;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Array;
 
 public class Capture extends Hazard {
-	public Sprite img;
+	public Array<Sprite> img;
 	private boolean caught;
 	private Ball ball;
 	
 	public Capture(World w, float x, float y, float radius) {
 		super(w, x, y, radius);
-		img = world.game.atlas.createSprite("capture");
+		img = world.game.atlas.createSprites("capture"); // TODO: make the arrows flash or something?
 		caught = false;
 		ball = null;
 	}
@@ -66,6 +67,10 @@ public class Capture extends Hazard {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(img, bounds.x - bounds.radius, bounds.y - bounds.radius, bounds.radius * 2, bounds.radius * 2);
+		if (caught) {
+			batch.draw(img.get(1), bounds.x - bounds.radius, bounds.y - bounds.radius, bounds.radius * 2, bounds.radius * 2);
+		} else {
+			batch.draw(img.get(0), bounds.x - bounds.radius, bounds.y - bounds.radius, bounds.radius * 2, bounds.radius * 2);
+		}
 	}
 }
