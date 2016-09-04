@@ -101,7 +101,9 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 				numPlayersInt = Integer.parseInt(btn.getText().toString());
 			}
 		});
-		
+
+		//TODO: add AI difficulty levels
+
 		btn = new TextButton("Main Menu", skin, "default");
 		btn.setBounds(WackyPong.SCREENSIZEX-130, 30, 100, 30);
 		btn.addListener(new ClickListener() {

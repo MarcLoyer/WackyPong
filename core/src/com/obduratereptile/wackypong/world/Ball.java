@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -15,7 +16,8 @@ public class Ball extends Actor {
 	
 	World world;
 	public Sprite img;
-	public Vector3 velocity;
+	public Vector2 velocity;
+	public float lateralSpin;
 	public int hitCount;
 	public int lastHitBy;
 	public Hazard traversing;
@@ -29,7 +31,8 @@ public class Ball extends Actor {
 		img.setSize(20, 20);
 		setBallPosition(x, y);
 		
-		velocity = new Vector3();
+		velocity = new Vector2();
+		lateralSpin = 0;
 		hitCount = 0;
 		lastHitBy = -1;
 		traversing = null;
@@ -39,11 +42,20 @@ public class Ball extends Actor {
 		velocity.x = x;
 		velocity.y = y;
 	}
-	
+
+	public void addToSpin(float spin) {
+		float maxSpin = 50;
+
+		lateralSpin += spin;
+		if (lateralSpin > maxSpin) lateralSpin = maxSpin;
+		if (lateralSpin < -maxSpin) lateralSpin = -maxSpin;
+	}
+
 	@Override
 	public void act(float deltaTime) {
 		super.act(deltaTime);
 		setBallPosition(bounds.x + velocity.x * deltaTime, bounds.y + velocity.y * deltaTime);
+		velocity.rotate(lateralSpin * deltaTime);
 	}
 	
 	@Override
@@ -82,10 +94,10 @@ public class Ball extends Actor {
 	 */
 	public void bounce(Ball ball) {
 		// compute unit normal and tangential vectors based on the collision
-		Vector3 unitNormal = new Vector3(ball.bounds.x - bounds.x, ball.bounds.y - bounds.y, 0);
+		Vector2 unitNormal = new Vector2(ball.bounds.x - bounds.x, ball.bounds.y - bounds.y);
 		unitNormal.setLength(1);
-		Vector3 normal = new Vector3(unitNormal); // need this below...
-		Vector3 unitTangent = new Vector3(-unitNormal.y, unitNormal.x, 0);
+		Vector2 normal = new Vector2(unitNormal); // need this below...
+		Vector2 unitTangent = new Vector2(-unitNormal.y, unitNormal.x);
 
 		// decompose the pre-collision velocities into the unit vectors
 		float vN1 = unitNormal.dot(velocity);
@@ -96,16 +108,20 @@ public class Ball extends Actor {
 
 		// the tangential velocities don't change
 		// the normal velocities are swapped between the two balls
-		Vector3 tempNormal = new Vector3(unitNormal);
-		Vector3 tempTangent = new Vector3(unitTangent);
+		Vector2 tempNormal = new Vector2(unitNormal);
+		Vector2 tempTangent = new Vector2(unitTangent);
 		
 		velocity.set(tempNormal.scl(vN2).add(tempTangent.scl(vT1)));
 		ball.velocity.set(unitNormal.scl(vN1).add(unitTangent.scl(vT2)));
 
 		// move the ball off the hazard to prevent collision captures
-		normal.scl(ball.bounds.radius + bounds.radius).add(bounds.x, bounds.y, 0);
+		normal.scl(ball.bounds.radius + bounds.radius).add(bounds.x, bounds.y);
 		ball.bounds.x = normal.x;
 		ball.bounds.y = normal.y;
+
+		// reverse the spin of both balls
+		lateralSpin *= -1;
+		ball.lateralSpin *= -1;
 	}
 
 	public void setBallPosition(float x, float y) {

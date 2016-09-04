@@ -2,6 +2,7 @@ package com.obduratereptile.wackypong.world;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -72,10 +73,10 @@ public abstract class Hazard extends Actor {
 	 */
 	protected void bounce(Ball ball) {
 		// compute unit normal and tangential vectors based on the collision
-		Vector3 unitNormal = new Vector3(ball.bounds.x - bounds.x, ball.bounds.y - bounds.y, 0);
+		Vector2 unitNormal = new Vector2(ball.bounds.x - bounds.x, ball.bounds.y - bounds.y);
 		unitNormal.setLength(1);
-		Vector3 normal = new Vector3(unitNormal); // need this below...
-		Vector3 unitTangent = new Vector3(-unitNormal.y, unitNormal.x, 0);
+		Vector2 normal = new Vector2(unitNormal); // need this below...
+		Vector2 unitTangent = new Vector2(-unitNormal.y, unitNormal.x);
 
 		// decompose the pre-collision velocity into the unit vectors
 		float vN = unitNormal.dot(ball.velocity);
@@ -86,7 +87,7 @@ public abstract class Hazard extends Actor {
 		ball.velocity.set(unitNormal.scl(-vN).add(unitTangent.scl(vT)));
 
 		// move the ball off the hazard to prevent collision captures
-		normal.scl(ball.bounds.radius + getRadius()).add(bounds.x, bounds.y, 0);
+		normal.scl(ball.bounds.radius + getRadius()).add(bounds.x, bounds.y);
 		ball.bounds.x = normal.x;
 		ball.bounds.y = normal.y;
 	}

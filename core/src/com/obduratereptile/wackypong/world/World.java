@@ -30,7 +30,7 @@ public class World extends Group {
 		// initialize the game objects...
 		game.player1Score = 0;
 		game.player2Score = 0;
-		cannon = new Cannon(this, WackyPong.SCREENSIZEX/2, WackyPong.SCREENSIZEY, 40.0f);
+		cannon = new Cannon(this, WackyPong.SCREENSIZEX/2, WackyPong.SCREENSIZEY-20);
 		addActor(cannon);
 		launchBall(0);
 		

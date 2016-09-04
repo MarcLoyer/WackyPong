@@ -13,7 +13,7 @@ public class Spinner extends Hazard {
 	
 	public Spinner(World w, float x, float y, float radius) {
 		super(w, x, y, radius);
-		img = world.game.atlas.createSprite("spinner");
+		img = world.game.atlas.createSprite("spinner"); //TODO: add spin to the ball to make it curve away
 		angle = 0;
 		img.setPosition(x-radius, y-radius);
 		img.setSize(radius*2,  radius*2);
@@ -40,10 +40,14 @@ public class Spinner extends Hazard {
 		
 		world.game.playBlip();
 		bounce(ball);
+
+		// add spin to the ball to make it curve
+		ball.addToSpin((float)Math.random() * 60 - 30);
+
 		//rotate the velocity vector by a random amount
 		//TODO - this may cause collision captures
 		float degrees = ((float)Math.random() * 2*ANGLE) - ANGLE;
-		ball.velocity.rotate(new Vector3(0,0,1), degrees);
+		ball.velocity.rotate(degrees);
 		ball.traversing = this;
 		return true;
 	}

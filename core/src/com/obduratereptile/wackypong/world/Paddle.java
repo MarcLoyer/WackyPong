@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.obduratereptile.wackypong.WackyPong;
@@ -125,9 +126,9 @@ public class Paddle extends Actor {
 			float y = (ball.bounds.y > minY)? maxY:	minY;
 
 			// compute unit normal and tangential vectors based on the collision
-			Vector3 unitNormal = new Vector3(ball.bounds.x-x, ball.bounds.y-y, 0);
+			Vector2 unitNormal = new Vector2(ball.bounds.x-x, ball.bounds.y-y);
 			unitNormal.setLength(1);
-			Vector3 unitTangent = new Vector3(-unitNormal.y, unitNormal.x, 0);
+			Vector2 unitTangent = new Vector2(-unitNormal.y, unitNormal.x);
 
 			// decompose the pre-collision velocity into the unit vectors
 			float vN = unitNormal.dot(ball.velocity);

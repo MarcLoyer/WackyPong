@@ -3,7 +3,11 @@ package com.obduratereptile.wackypong.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -14,7 +18,6 @@ public class Cannon extends Image {
 	final float SPEED = 100;
 
 	public World world;
-	public Texture img;
 
 	public float angle;
 	public float direction;
@@ -23,11 +26,14 @@ public class Cannon extends Image {
 	public float minAngle;
 	public int player;
 
-	public Cannon(World world, float x, float y, float w) {
-		super(world.game.getSpriteDrawable("cannon", Color.GOLD));
+	public Cannon(World world, float x, float y) { // (x,y) is the origin point of the cannon
+		super(world.game.atlas.createSprite("cannon"));
+
 		this.world = world;
-		
-		setBounds(x - w/2, y, w, w);
+
+		float width = 40;
+		float height = 70;
+		setBounds(x - width/2, y - height + width/2, width, height);
 		maxAngle = 85;
 		minAngle = 5;
 
@@ -36,10 +42,9 @@ public class Cannon extends Image {
 		isHidden = false;
 		player = -1;
 		
-		setOrigin(getWidth()/2, getHeight()/2);
+		setOrigin(width/2, height - width/2);
 		setRotation(angle);
-		
-		
+
 		this.addListener(new ClickListener() {
 			public void clicked(InputEvent e, float x, float y) {
 				// TODO: ignore touch if AI is supposed to launch
@@ -67,7 +72,7 @@ public class Cannon extends Image {
 		}
 		setRotation(angle);
 	}
-	
+
 	public void hide() {
 		if (isHidden) return;
 		//TODO: play a sound effect
@@ -116,12 +121,16 @@ public class Cannon extends Image {
 	}
 
 	public void fire() {
-		// launch the ball at the same angle as the cannon
-		Ball b = new Ball(world, getX()+getWidth()/2, getY()+getHeight()/2);
-		b.lastHitBy = player;
+		// Create a new ball just past the end of the cannon, with a velocity moving away from the cannon
+		float cannonLength = 60;
 		double rad = Math.toRadians(angle);
+		Vector2 p = new Vector2(getX(), getY());
+		p.add(getOriginX(), getOriginY());
+		p.add(cannonLength * (float) Math.sin(rad), -cannonLength * (float) Math.cos(rad));
+		Ball b = new Ball(world, p.x, p.y);
 		b.setVelocity(200 * (float) Math.sin(rad), -100 * (float) Math.cos(rad));
 		world.addBall(b);
+
 		//TODO: play a sound effect
 		
 		hide();

@@ -12,7 +12,8 @@ public class DesktopLauncher {
 		
 		// Run the texture packer...
 /*
-		String assetsPath = ""; // run directory should be set to android/assets in the run config
+		String assetsPath = "C:/Users/Marc/Documents/AssetDevelopment/WackyPong/Images"; // run directory should be set to android/assets in the run config
+		String atlasPath = "atlas";
         TexturePacker.Settings packSettings = new TexturePacker.Settings();
         packSettings.pot = true;
 		// I tried all the different filters, So far the best is MipMapLinearLinear or MipMap
@@ -21,7 +22,7 @@ public class DesktopLauncher {
         packSettings.flattenPaths = true;
         packSettings.combineSubdirectories = true;
 
-        TexturePacker.process(packSettings, assetsPath+"images", assetsPath+"atlas", "textures.pack");
+        TexturePacker.process(packSettings, assetsPath, atlasPath, "textures.pack");
 */
 
         

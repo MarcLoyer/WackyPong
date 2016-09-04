@@ -6,175 +6,175 @@ filter: MipMap,MipMap
 repeat: none
 Mute_Icon
   rotate: false
-  xy: 607, 65
+  xy: 111, 208
   size: 60, 47
   orig: 60, 47
   offset: 0, 0
   index: -1
 Speaker_Icon
   rotate: false
-  xy: 673, 131
+  xy: 541, 320
   size: 60, 47
   orig: 60, 47
   offset: 0, 0
   index: -1
 ball
   rotate: false
-  xy: 897, 205
+  xy: 897, 460
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ban2
   rotate: false
-  xy: 541, 114
+  xy: 541, 369
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 bumper
   rotate: false
-  xy: 7, 358
+  xy: 7, 613
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: -1
 cannon
   rotate: false
-  xy: 541, 48
-  size: 64, 64
-  orig: 64, 64
+  xy: 2, 68
+  size: 107, 187
+  orig: 107, 187
   offset: 0, 0
   index: -1
 capture
   rotate: false
-  xy: 7, 180
+  xy: 7, 435
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 0
 capture
   rotate: false
-  xy: 185, 358
+  xy: 185, 613
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 1
 dottedline
   rotate: false
-  xy: 2, 54
+  xy: 2, 309
   size: 3, 480
   orig: 3, 480
   offset: 0, 0
   index: -1
 emptyfile
   rotate: false
-  xy: 953, 337
+  xy: 953, 592
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 file
   rotate: false
-  xy: 541, 14
+  xy: 607, 401
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 paddle
   rotate: false
-  xy: 897, 261
+  xy: 897, 516
   size: 54, 273
   orig: 54, 273
   offset: 0, 0
   index: -1
 paddlesmall
   rotate: false
-  xy: 953, 371
+  xy: 953, 626
   size: 54, 163
   orig: 54, 163
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 607, 114
+  xy: 2, 2
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 pinballbumper
   rotate: false
-  xy: 185, 180
+  xy: 185, 435
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: -1
 warp
   rotate: false
-  xy: 185, 180
+  xy: 185, 435
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 0
 shrink
   rotate: false
-  xy: 363, 358
+  xy: 363, 613
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: -1
 spinner
   rotate: false
-  xy: 363, 180
+  xy: 363, 435
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: -1
 warp
   rotate: false
-  xy: 541, 358
+  xy: 541, 613
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 1
 warp
   rotate: false
-  xy: 541, 180
+  xy: 541, 435
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 2
 warp
   rotate: false
-  xy: 719, 358
+  xy: 719, 613
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 3
 warp
   rotate: false
-  xy: 719, 180
+  xy: 719, 435
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 4
 warp
   rotate: false
-  xy: 7, 2
+  xy: 7, 257
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 5
 warp
   rotate: false
-  xy: 185, 2
+  xy: 185, 257
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 6
 warp
   rotate: false
-  xy: 363, 2
+  xy: 363, 257
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
