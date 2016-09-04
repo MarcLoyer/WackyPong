@@ -29,7 +29,18 @@ public class Shrink extends Hazard {
 	public Shrink copy() {
 		return new Shrink(world, bounds.x, bounds.y, bounds.radius);
 	}
-	
+
+	@Override
+	public void setRadius(float radius) {
+		float x = getX();
+		float y = getY();
+		float r = getRadius();
+
+		img.setBounds(x+r-radius, y+r-radius, radius*2, radius*2);
+		img.setOrigin(radius,  radius);
+		super.setRadius(r);
+	}
+
 	@Override
 	public boolean collision(Ball ball) {
 		World world = (World)getParent();

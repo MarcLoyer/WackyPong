@@ -19,31 +19,37 @@ public class Cannon extends Image {
 
 	public World world;
 
-	public float angle;
 	public float direction;
 	public boolean isHidden;
 	public float maxAngle;
 	public float minAngle;
 	public int player;
 
+	private Vector2 positionHide;
+	private Vector2 positionShow;
+
 	public Cannon(World world, float x, float y) { // (x,y) is the origin point of the cannon
 		super(world.game.atlas.createSprite("cannon"));
-
 		this.world = world;
 
 		float width = 40;
 		float height = 70;
-		setBounds(x - width/2, y - height + width/2, width, height);
-		maxAngle = 85;
-		minAngle = 5;
-
-		angle = minAngle;
-		direction = 1;
-		isHidden = false;
-		player = -1;
-		
+		positionHide = new Vector2(x - width/2, y + width/2);
+		positionShow = new Vector2(x - width/2, y - height + width/2);
+		setBounds(positionHide.x, positionHide.y, width, height);
 		setOrigin(width/2, height - width/2);
-		setRotation(angle);
+
+		isHidden = false;
+		setAngles(85, 5);
+		direction = 1;
+		this.player = -1;
+		addAction(Actions.forever(
+				Actions.sequence(
+						Actions.rotateTo(maxAngle, 0.5f),
+						Actions.rotateTo(minAngle, 0.5f)
+				)
+		));
+
 
 		this.addListener(new ClickListener() {
 			public void clicked(InputEvent e, float x, float y) {
@@ -56,79 +62,73 @@ public class Cannon extends Image {
 	@Override
 	public void act(float deltaTime) {
 		super.act(deltaTime);
-		update(deltaTime);
 	}
 	
-	public void update(float deltaTime) {
-		//TODO: recode this using RotateToAction ?
-		angle += direction * deltaTime * SPEED;
-		if (angle > maxAngle) {
-			angle = maxAngle;
-			direction *= -1;
-		}
-		if (angle < minAngle) {
-			angle = minAngle;
-			direction *= -1;
-		}
-		setRotation(angle);
-	}
-
 	public void hide() {
 		if (isHidden) return;
 		//TODO: play a sound effect
-		//TODO: known bug - if hide() is called while the cannon is being hidden, then we wind up
-		// having more show()s than hide()s, and the cannon marches down the screen. Instead of
-		// booleans, we should keep a count, and re-show/re-hide until the count reaches zero.
 		isHidden = true;
 		setTouchable(Touchable.disabled);
+		clearActions();
 		addAction(Actions.sequence(
-				Actions.moveTo(getX(), getY()+getHeight(), 1.5f),
-				Actions.run(new Runnable() {
-					public void run () {
-						angle = minAngle;
-						direction = 0;
-						setRotation(angle);
-					}
-				})
+				Actions.rotateTo(0, 0.5f),
+				Actions.moveTo(positionHide.x, positionHide.y, 1.5f)
 			));
 	}
 
 	public void show(int player) {
 		if (!isHidden) return;
 		//TODO: play a sound effect
-		isHidden = false;
 		direction = 1;
 		this.player = player;
-		
+
 		addAction(Actions.sequence(
-				Actions.moveTo(getX(), getY()-getHeight(), 1.5f),
+				Actions.after(Actions.moveTo(positionShow.x, positionShow.y, 1.5f)),
 				Actions.run(new Runnable() {
 					public void run () {
 						setTouchable(Touchable.enabled);
+						isHidden = false;
 					}
-				})
+				}),
+				Actions.forever(
+						Actions.sequence(
+								Actions.rotateTo(maxAngle, 0.5f),
+								Actions.rotateTo(minAngle, 0.5f)
+						)
+				)
 			));
 	}
 
 	public void setAngles(float max, float min) {
-		maxAngle = max;
-		minAngle = min;
-		if (angle > maxAngle)
-			angle = maxAngle;
-		if (angle < minAngle)
-			angle = minAngle;
-		setRotation(angle);
+		// max, min, whatevs... the one closest to 0 is min, the other is max
+		if (max<0) {
+			if (max > min) {
+				minAngle = max;
+				maxAngle = min;
+			} else {
+				minAngle = min;
+				maxAngle = max;
+			}
+		} else {
+			if (max > min) {
+				minAngle = min;
+				maxAngle = max;
+			} else {
+				minAngle = max;
+				maxAngle = min;
+			}
+		}
 	}
 
 	public void fire() {
 		// Create a new ball just past the end of the cannon, with a velocity moving away from the cannon
 		float cannonLength = 60;
-		double rad = Math.toRadians(angle);
+		double rad = Math.toRadians(getRotation());
 		Vector2 p = new Vector2(getX(), getY());
 		p.add(getOriginX(), getOriginY());
 		p.add(cannonLength * (float) Math.sin(rad), -cannonLength * (float) Math.cos(rad));
 		Ball b = new Ball(world, p.x, p.y);
-		b.setVelocity(200 * (float) Math.sin(rad), -100 * (float) Math.cos(rad));
+		b.setVelocity(200 * (float) Math.sin(rad), -200 * (float) Math.cos(rad));
 		world.addBall(b);
 
 		//TODO: play a sound effect

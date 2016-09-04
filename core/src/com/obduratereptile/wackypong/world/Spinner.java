@@ -13,7 +13,7 @@ public class Spinner extends Hazard {
 	
 	public Spinner(World w, float x, float y, float radius) {
 		super(w, x, y, radius);
-		img = world.game.atlas.createSprite("spinner"); //TODO: add spin to the ball to make it curve away
+		img = world.game.atlas.createSprite("spinner");
 		angle = 0;
 		img.setPosition(x-radius, y-radius);
 		img.setSize(radius*2,  radius*2);
@@ -29,7 +29,18 @@ public class Spinner extends Hazard {
 	public Spinner copy() {
 		return new Spinner(world, bounds.x, bounds.y, bounds.radius);
 	}
-	
+
+	@Override
+	public void setRadius(float radius) {
+		float x = getX();
+		float y = getY();
+		float r = getRadius();
+
+		img.setBounds(x+r-radius, y+r-radius, radius*2, radius*2);
+		img.setOrigin(radius,  radius);
+		super.setRadius(r);
+	}
+
 	@Override
 	public boolean collision(Ball ball) {
 		if (!bounds.overlaps(ball.bounds)) {

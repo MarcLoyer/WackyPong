@@ -59,7 +59,6 @@ public class EditorScreen extends Stage implements Screen {
 				return true;
 			}
 		});
-		//TODO: set radius is not working
 		popup.addMenuItem("set radius", skin, "default").addListener(new InputListener() {
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
