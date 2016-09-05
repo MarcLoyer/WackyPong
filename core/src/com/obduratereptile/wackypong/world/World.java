@@ -256,12 +256,14 @@ public class World extends Group {
 	}
 
 	public void launchBall(int player) {
+		if (player == -1) {
+			player = (int)(Math.random()*2.0f);
+		}
+
 		if (player==0) {
 			cannon.setAngles(85, 5);
-		} else if (player==1) {
-			cannon.setAngles(-5, -85);
 		} else {
-			cannon.setAngles(85, -85);
+			cannon.setAngles(-5, -85);
 		}
 		cannon.show(player);
 	}

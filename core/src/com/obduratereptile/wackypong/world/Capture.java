@@ -55,7 +55,7 @@ public class Capture extends Hazard {
 			ball.traversing = this;
 			this.ball = ball;
 			caught = true;
-			world.launchBall(-1); //TODO: the player who hit the ball into the hazard gets to launch the new one
+			world.launchBall(ball.lastHitBy);
 		}
 		return true;
 	}

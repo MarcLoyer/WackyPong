@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.obduratereptile.wackypong.world.AutoPlayer;
 import com.obduratereptile.wackypong.world.Ball;
 import com.obduratereptile.wackypong.world.Capture;
 import com.obduratereptile.wackypong.world.Spinner;
@@ -67,6 +68,9 @@ public class GameScreen extends Stage implements Screen {
 
 		this.gameState = RUNNING;
 		this.numPlayers = numPlayers;
+
+		if (numPlayers<2) addActor(new AutoPlayer(1, 0, world));
+		if (numPlayers<1) addActor(new AutoPlayer(0, 0, world));
 	}
 	
 	public GameScreen(WackyPong g, int numPlayers, int savedFieldIndex) {
@@ -219,62 +223,6 @@ public class GameScreen extends Stage implements Screen {
 				if (Gdx.input.isKeyPressed(Keys.SPACE)) world.cannon.fire();
 			}
 		}
-		
-		// AI players...
-		if (numPlayers == 2) return;
-		// get the left-most and right-most ball
-		Ball leftmost=null, rightmost=null;
-		Iterator<Ball> b = world.ball.iterator();
-		while (b.hasNext()) {
-			Ball bb = b.next();
-			if (leftmost==null) {
-				if (bb.velocity.x != 0) leftmost = bb;
-			} else {
-				if ((bb.bounds.x < leftmost.bounds.x) && (bb.velocity.x < 0)) leftmost = bb;
-			}
-			if (rightmost==null) {
-				if (bb.velocity.x != 0) rightmost = bb;
-			} else {
-				if ((bb.bounds.x > rightmost.bounds.x) && (bb.velocity.x > 0)) rightmost = bb;
-			}
-		}
-
-		// TODO: make the AIs imperfect
-		// - slow down the paddles?
-		// - inaccurate ball prediction?
-		if ((leftmost!=null) && (numPlayers == 0)) {
-			world.paddle[0].moveTo(new Vector3(0, leftmost.bounds.y, 0));
-		}
-		if (rightmost!=null) {
-			world.paddle[1].moveTo(new Vector3(0, rightmost.bounds.y, 0));
-		}
-		
-		if (!world.cannon.isHidden) {
-			if ((world.cannon.player==1) || (numPlayers==0)) {
-				fireCannon();
-			}
-			
-		}
-	}
-	
-	private boolean firing = false;
-	
-	private void fireCannon() {
-		if (firing) return;
-		firing = true;
-		
-		Thread thread = new Thread(new Runnable() {
-			public void run() {
-				long time = (long)(1000 * Math.random()); //random time between 0 and 1 second
-				try {
-					Thread.sleep(1000+time);
-				} catch (InterruptedException e) {
-				}
-				world.cannon.fire();
-				firing = false;
-			}
-		});
-		thread.start();
 	}
 	
 	@Override

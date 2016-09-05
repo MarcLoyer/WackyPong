@@ -1,5 +1,6 @@
 package com.obduratereptile.wackypong.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.obduratereptile.wackypong.WackyPong;
@@ -71,10 +72,11 @@ public class AutoPlayer extends Actor {
         while (b.hasNext()) {
             Ball bb = b.next();
             // ignore balls that are moving away from us
-            if (player==0)
-                if (bb.velocity.x>=0) continue;
-            else
-                if (bb.velocity.x<=0) continue;
+            if (player==0) {
+                if (bb.velocity.x >= 0) continue;
+            } else {
+                if (bb.velocity.x <= 0) continue;
+            }
 
             // predict which ball will arrive first
             if (nearest==null) {
@@ -92,13 +94,22 @@ public class AutoPlayer extends Actor {
     }
 
     private float arrivalTime(Ball b) {
-        float x = (player==1)? WackyPong.SCREENSIZEX - b.getX(): getX();
-        float v = (player==1)? b.velocity.x: -b.velocity.x;
+        float x;
+        float v;
+
+        if (player == 1) {
+            x = (WackyPong.SCREENSIZEX - b.getX());
+            v = b.velocity.x;
+        } else {
+            x = b.getX();
+            v = -b.velocity.x;
+        }
 
         return x/v;
     }
 
     private boolean myTurnToLaunch() {
+        if (world.cannon.isHidden) return false;
         if (firing) return false;
         return (world.cannon.player == player);
     }
@@ -106,6 +117,7 @@ public class AutoPlayer extends Actor {
     private void fireCannon() {
         if (firing) return;
         firing = true;
+        Gdx.app.error("WP", "AutoPlayer " + player + " firing");
 
         Thread thread = new Thread(new Runnable() {
             public void run() {

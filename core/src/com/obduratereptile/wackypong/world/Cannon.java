@@ -42,7 +42,7 @@ public class Cannon extends Image {
 		isHidden = false;
 		setAngles(85, 5);
 		direction = 1;
-		this.player = -1;
+		this.player = 0;
 		addAction(Actions.forever(
 				Actions.sequence(
 						Actions.rotateTo(maxAngle, 0.5f),

@@ -32,8 +32,6 @@ public class RadioButton extends Table {
 			add(buttons[i]).width(50).fill().expandX();
 			buttonGroup.add(buttons[i]);
 		}
-		
-		//TODO: add a background so that a border can be drawn around this widget
 	}
 	
 	public String getSelection() {

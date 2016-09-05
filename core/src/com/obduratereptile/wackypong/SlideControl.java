@@ -53,8 +53,6 @@ public class SlideControl extends Table {
 				}
 			}
 		});
-		
-		//TODO: add a background so that a border can be drawn around this widget
 	}
 	
 	public void setValue(float value) {
