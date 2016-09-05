@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -106,6 +108,9 @@ public class SplashScreen extends Stage implements Screen {
 			game.boop4 = game.manager.get("sounds/boop4.wav", Sound.class);
 			game.clink = game.manager.get("sounds/clink.wav", Sound.class);
 			game.paddle = game.manager.get("sounds/paddle.wav", Sound.class);
+
+			game.buttonBackground = new NinePatchDrawable(game.atlas.createPatch("buttonbackground"));
+			game.buttonBackground2 = new NinePatchDrawable(game.buttonBackground).tint(new Color(0, .8f, 0, 1));
 			
 			// show the splash for at least 5 seconds
 			if ((TimeUtils.millis()-startTime) > 5000) {

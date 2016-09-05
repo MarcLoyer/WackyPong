@@ -49,9 +49,12 @@ public class EditorScreen extends Stage implements Screen {
 		camera.setToOrtho(false, WackyPong.SCREENSIZEX, WackyPong.SCREENSIZEY);
 		
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
-		
+		TextButton btn;
+
 		popup = new Popup();
-		popup.addMenuItem("delete", skin, "default").addListener(new InputListener() {
+		btn = popup.addMenuItem("delete", skin, "default");
+		btn.getStyle().up = game.buttonBackground2;
+		btn.addListener(new InputListener() {
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				game.clink.play(game.volumeSounds);
@@ -59,7 +62,9 @@ public class EditorScreen extends Stage implements Screen {
 				return true;
 			}
 		});
-		popup.addMenuItem("set radius", skin, "default").addListener(new InputListener() {
+		btn = popup.addMenuItem("set radius", skin, "default");
+		btn.getStyle().up = game.buttonBackground2;
+		btn.addListener(new InputListener() {
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				game.clink.play(game.volumeSounds);
@@ -72,7 +77,7 @@ public class EditorScreen extends Stage implements Screen {
 		
 		dialog = new SetRadiusDialog("Set radius", skin, "default");
 		
-		TextButton btn = new TextButton("Back", skin, "default");
+		btn = new TextButton("Back", skin, "default");
 		btn.setBounds(1 * WackyPong.SCREENSIZEX/4, WackyPong.SCREENSIZEY * 0.05f, 60, 30);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
@@ -81,6 +86,7 @@ public class EditorScreen extends Stage implements Screen {
 	            dispose();
 			}
 		});
+		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
 		
 		btn = new TextButton("Load", skin, "default");
@@ -91,6 +97,7 @@ public class EditorScreen extends Stage implements Screen {
 				loadField();
 			}
 		});
+		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
 		
 		btn = new TextButton("Save", skin, "default");
@@ -101,6 +108,7 @@ public class EditorScreen extends Stage implements Screen {
 				saveField();
 			}
 		});
+		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
 		
 		world = new World(game);
@@ -150,9 +158,11 @@ public class EditorScreen extends Stage implements Screen {
 	protected void saveField() {
 		FileSaveDialog dialog = new FileSaveDialog(skin, game) {
 			protected void result(Object obj) {
-				if (selectedFile == -1) return;
-				String filename = "saves/field_"+selectedFile+".txt";
-				world.write(filename);
+				if (selectedFile != -1) {
+					String filename = "saves/field_" + selectedFile + ".txt";
+					world.write(filename);
+				}
+				super.result(obj);
 			}
 		};
 		dialog.show(this);
@@ -161,13 +171,15 @@ public class EditorScreen extends Stage implements Screen {
 	protected void loadField() {
 		FileLoadDialog dialog = new FileLoadDialog(skin, game) {
 			protected void result(Object obj) {
-				if (selectedFile == -1) return;
-				String filename = "saves/field_"+selectedFile+".txt";
-				world.read(filename);
-				// add InputListeners to all the hazards so they can be modified
-				for (int i=0; i<world.numHazards; i++) {
-					world.hazard[i].addListener(hazardDragListener);
+				if (selectedFile != -1) {
+					String filename = "saves/field_" + selectedFile + ".txt";
+					world.read(filename);
+					// add InputListeners to all the hazards so they can be modified
+					for (int i = 0; i < world.numHazards; i++) {
+						world.hazard[i].addListener(hazardDragListener);
+					}
 				}
+				super.result(obj);
 			}
 		};
 		dialog.show(this);

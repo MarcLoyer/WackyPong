@@ -5,6 +5,7 @@ import java.util.Iterator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -73,9 +74,9 @@ public class LevelSelector extends Table {
 			row();
 		}
 		
-		//TODO: add a background so that a border can be drawn around this widget
+		setBackground(game.buttonBackground);
 	}
-	
+
 	public void disableAllCells(boolean disable) {
 		Iterator<Cell> cell = getCells().iterator();
 		while (cell.hasNext()) {
@@ -139,6 +140,7 @@ public class LevelSelector extends Table {
 					this.lbl
 					);
 			add(stack);
+			getStyle().up = game.buttonBackground2;
 		}
 		
 		public void setEmpty(boolean e) {

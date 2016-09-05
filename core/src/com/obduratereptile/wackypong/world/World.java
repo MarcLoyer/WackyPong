@@ -191,7 +191,7 @@ public class World extends Group {
 	private void drawField(Batch batch) {
 		batch.end();
 		game.renderer.begin(ShapeType.Filled);
-		game.renderer.setColor(Color.GREEN);
+		game.renderer.setColor(0, 0.5f, 0, 1);
 		game.renderer.rect(getX(), getY(), getWidth()*getScaleX(), getHeight()*getScaleY());
 		game.renderer.end();
 		game.renderer.begin(ShapeType.Line);

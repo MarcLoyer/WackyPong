@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -47,7 +48,8 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 		SpriteDrawable emptyfile = game.getSpriteDrawable("emptyfile");
 		
 		levelSelector = new LevelSelector("Select a saved field...", skin, "default", 2, 5, file, emptyfile, game);
-		levelSelector.setBounds(WackyPong.SCREENSIZEX/2-250, WackyPong.SCREENSIZEY-290, 500, 200);
+		levelSelector.setPosition(WackyPong.SCREENSIZEX/2-250, WackyPong.SCREENSIZEY-290);
+		levelSelector.setSize(500, 250); // hmm. this is not the right way...
 		addActor(levelSelector);
 		levelSelector.addListener(this);
 
@@ -60,14 +62,16 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 	            dispose();
 			}
 		});
+		btn.setBackground(game.buttonBackground);
 		addActor(btn);
 		
 		SpriteDrawable mute = game.getSpriteDrawable("Mute_Icon");
 		SpriteDrawable speaker = game.getSpriteDrawable("Speaker_Icon");
 		
 		soundControl = new SlideControl(skin, "sound f/x", speaker, mute, mute);
-		soundControl.setBounds(30, 80, 300, 30);
+		soundControl.setBounds(30, 80, 330, 45);
 		soundControl.setValue(game.volumeSounds);
+		soundControl.setBackground(game.buttonBackground);
 		addActor(soundControl);
 		soundControl.slider.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
@@ -77,8 +81,9 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 		});
 		
 		musicControl = new SlideControl(skin, "music", speaker, mute, mute);
-		musicControl.setBounds(30, 30, 300, 30);
+		musicControl.setBounds(30, 30, 330, 45);
 		musicControl.setValue(game.volume);
+		musicControl.setBackground(game.buttonBackground);
 		addActor(musicControl);
 		musicControl.slider.addListener(new ChangeListener() {
 			public void changed(ChangeEvent event, Actor actor) {
@@ -92,7 +97,8 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 				// TODO: add "2 (network)" option
 				"2", "1", "0"
 				);
-		numPlayers.setBounds(360, 30, 150, 30);
+		numPlayers.setBounds(360, 30, 150, 50);
+		numPlayers.setBackground(game.buttonBackground);
 		addActor(numPlayers);
 		numPlayers.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
@@ -113,6 +119,7 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 	            dispose();
 			}
 		});
+		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
 	}
 	
@@ -132,7 +139,7 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0.8f, 0.8f, 0.8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		camera.update();

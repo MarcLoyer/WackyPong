@@ -39,6 +39,14 @@ bumper
   orig: 176, 176
   offset: 0, 0
   index: -1
+buttonbackground
+  rotate: false
+  xy: 953, 589
+  size: 35, 35
+  split: 10, 10, 10, 10
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
 cannon
   rotate: false
   xy: 2, 68
@@ -69,14 +77,14 @@ dottedline
   index: -1
 emptyfile
   rotate: false
-  xy: 953, 592
+  xy: 990, 592
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 file
   rotate: false
-  xy: 607, 401
+  xy: 990, 558
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

@@ -48,6 +48,7 @@ public class MainMenuScreen extends Stage implements Screen {
 				dispose();
 			}
 		});
+		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
 
 /*
@@ -58,6 +59,7 @@ public class MainMenuScreen extends Stage implements Screen {
 				game.showAd();
 			}
 		});
+		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
 */
 
@@ -70,6 +72,7 @@ public class MainMenuScreen extends Stage implements Screen {
 				dispose();
 			}
 		});
+		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
 	}
 

@@ -14,6 +14,16 @@ import java.util.Iterator;
  *   3 = makes fairly obvious errors
  * Created by Marc on 9/4/2016.
  */
+/* some ideas for errors:
+ *   * Pick a ball to track, and don't change until one of these things happen: ball hits paddle;
+ *     ball scores; ball reverses direction. A glancing blow from a hazard or another ball could
+ *     slow the ball, making another ball arrive earlier.
+ *   * Predict the y location of an incoming ball, and don't update until the ball gets very close.
+ *     Thus, interactions with the field won't be tracked.
+ *   * ...
+ *
+ *   Finally, I should slow the paddles down further, to make some targets out of reach.
+*/
 public class AutoPlayer extends Actor {
     public int difficultyLevel;
     public int player;

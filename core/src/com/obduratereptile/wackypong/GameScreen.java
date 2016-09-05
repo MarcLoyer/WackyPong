@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.obduratereptile.wackypong.world.Ball;
@@ -75,13 +76,7 @@ public class GameScreen extends Stage implements Screen {
 		if (savedFieldIndex == -1) {
 			// randomly generate a field
 			world.generateHazards();
-			//world.addHazard(new Bumper(world, WackyPong.SCREENSIZEX/2-100, WackyPong.SCREENSIZEY/2-90, 20));
-			//world.addHazard(new PinballBumper(world, WackyPong.SCREENSIZEX/2-100, WackyPong.SCREENSIZEY/2-40, 20));
-			//world.addHazard(new Spinner(world, WackyPong.SCREENSIZEX/2-100, WackyPong.SCREENSIZEY/2+10, 20));
-			//world.addHazard(new Capture(world, WackyPong.SCREENSIZEX/2-100, WackyPong.SCREENSIZEY/2+60, 20));
-			//world.addHazard(new Warp(world, WackyPong.SCREENSIZEX/2-200, WackyPong.SCREENSIZEY/2+90, 20));
-			//world.addHazard(new Warp(world, WackyPong.SCREENSIZEX/2+200, WackyPong.SCREENSIZEY/2+90, 20));
-			
+
 		} else {
 			world.read("saves/field_"+savedFieldIndex+".txt");
 		}
@@ -89,16 +84,18 @@ public class GameScreen extends Stage implements Screen {
 	
 	/**
 	 * Launches a save file dialog that allows the user to select one of ten possible files.
-	 * Warns if the selected file will be overwritten. This methods returns immediately if
-	 * the field was not randomly generated (because it must have been loaded from a file and
-	 * so does not need to be saved).
+	 * This methods returns immediately if the field was not randomly generated (because it
+	 * must have been loaded from a file and so does not need to be saved).
 	 */
 	protected void saveField() {
 		FileSaveDialog dialog = new FileSaveDialog(skin, game) {
 			protected void result(Object obj) {
-				if (selectedFile == -1) return;
-				String filename = "saves/field_"+selectedFile+".txt";
-				world.write(filename);
+				if (selectedFile != -1) {
+					String filename = "saves/field_" + selectedFile + ".txt";
+					world.write(filename);
+				}
+				gameState = RUNNING;
+				super.result(obj);
 			}
 		};
 		dialog.show(this);
@@ -137,7 +134,9 @@ public class GameScreen extends Stage implements Screen {
 		if ((dialog != null) && (dialog.getStage() != null)) return;
 		
 		gameState = PAUSED;
-		
+
+		TextButton btn;
+
 		dialog = new Dialog(title, skin, "default") {
 			protected void result(Object obj) {
 				String s = (String) obj;
@@ -158,13 +157,19 @@ public class GameScreen extends Stage implements Screen {
 					saveField();
 			}
 		};
-		if (title.equals("Paused"))
-			dialog.button("resume", "resume");
-		else
-			dialog.button("new game", "new game");
-		dialog.button("quit", "quit");
-		if (savedFieldIndex == -1)
-			dialog.button("save", "save");
+		if (title.equals("Paused")) {
+			btn = new TextButton("resume", skin, "default");
+			dialog.button(btn, "resume");
+		} else {
+			btn = new TextButton("new game", skin, "default");
+			dialog.button(btn, "new game");
+		}
+		btn = new TextButton("quit", skin, "default");
+		dialog.button(btn, "quit");
+		if (savedFieldIndex == -1) {
+			btn = new TextButton("save", skin, "default");
+			dialog.button(btn, "save");
+		}
 		dialog.show(this);
 	}
 	
