@@ -117,7 +117,6 @@ public class AutoPlayer extends Actor {
     private void fireCannon() {
         if (firing) return;
         firing = true;
-        Gdx.app.error("WP", "AutoPlayer " + player + " firing");
 
         Thread thread = new Thread(new Runnable() {
             public void run() {

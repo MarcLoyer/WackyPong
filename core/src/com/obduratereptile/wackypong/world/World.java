@@ -221,7 +221,9 @@ public class World extends Group {
 	}
 
 	public void restart() {
-		for (Hazard h: hazard) h.restart();
+		for (int i=0; i<numHazards; i++) {
+			hazard[i].restart();
+		}
 		removeAllBalls();
 		launchBall(0);
 	}
