@@ -30,7 +30,9 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 	public SlideControl musicControl;
 	public RadioButton numPlayers;
 	public int numPlayersInt;
-	
+	public RadioButton difficultyLevel;
+	public int difficultyLevelInt;
+
 	public OptionsScreen(WackyPong g) {
 		super(new FitViewport(WackyPong.SCREENSIZEX, WackyPong.SCREENSIZEY));
 		Gdx.input.setInputProcessor(this);
@@ -48,17 +50,17 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 		SpriteDrawable emptyfile = game.getSpriteDrawable("emptyfile");
 		
 		levelSelector = new LevelSelector("Select a saved field...", skin, "default", 2, 5, file, emptyfile, game);
-		levelSelector.setPosition(WackyPong.SCREENSIZEX/2-250, WackyPong.SCREENSIZEY-290);
+		levelSelector.setPosition(30, WackyPong.SCREENSIZEY-280);
 		levelSelector.setSize(500, 250); // hmm. this is not the right way...
 		addActor(levelSelector);
 		levelSelector.addListener(this);
 
 		TextButton btn = new TextButton("...or play a generated field", skin, "default");
-		btn.setBounds(WackyPong.SCREENSIZEX/2-150, WackyPong.SCREENSIZEY-350, 300, 30);
+		btn.setBounds(30, WackyPong.SCREENSIZEY-310, 500, 30);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
-				game.setScreen(new GameScreen(game, Integer.parseInt(numPlayers.getSelection()), -1));
+				game.setScreen(new GameScreen(game, numPlayersInt, difficultyLevelInt, -1));
 	            dispose();
 			}
 		});
@@ -97,18 +99,43 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 				// TODO: add "2 (network)" option
 				"2", "1", "0"
 				);
-		numPlayers.setBounds(360, 30, 150, 50);
+		numPlayers.setBounds(590, 360, 180, 50);
+		numPlayers.setChecked(game.numPlayers);
 		numPlayers.setBackground(game.buttonBackground);
 		addActor(numPlayers);
 		numPlayers.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
+				game.setNumPlayers(numPlayers.getChecked());
 				TextButton btn = ((RadioButton)event.getListenerActor()).buttonGroup.getChecked();
 				numPlayersInt = Integer.parseInt(btn.getText().toString());
 			}
 		});
 
-		//TODO: add AI difficulty levels
+		difficultyLevel = new RadioButton(
+			"AI Difficulty Level", skin, "default", true,
+				"You'll lose",
+				"You might win",
+				"You'll probably win",
+				"Enjoy your win :)"
+		);
+		difficultyLevel.setBounds(590, 220, 180, 140);
+		difficultyLevel.setChecked(game.difficultyLevel);
+		difficultyLevel.setBackground(game.buttonBackground);
+		addActor(difficultyLevel);
+		difficultyLevel.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				game.clink.play(game.volumeSounds);
+				game.setDifficultyLevel(difficultyLevel.getChecked());
+				TextButton btn = ((RadioButton)event.getListenerActor()).buttonGroup.getChecked();
+				String t = btn.getText().toString();
+				if (t.equals("You'll lose")) difficultyLevelInt = 0;
+				if (t.equals("You might win")) difficultyLevelInt = 1;
+				if (t.equals("You'll probably win")) difficultyLevelInt = 2;
+				difficultyLevelInt = 3;
+			}
+		});
+
 
 		btn = new TextButton("Main Menu", skin, "default");
 		btn.setBounds(WackyPong.SCREENSIZEX-130, 30, 100, 30);
@@ -174,7 +201,7 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 	
 	public void selected(int index) {
 		game.clink.play(game.volumeSounds);
-		game.setScreen(new GameScreen(game, Integer.parseInt(numPlayers.getSelection()), index));
+		game.setScreen(new GameScreen(game, numPlayersInt, difficultyLevelInt, index));
 		dispose();
 	}
 }

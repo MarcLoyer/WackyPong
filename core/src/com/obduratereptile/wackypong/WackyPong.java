@@ -49,6 +49,10 @@ public class WackyPong extends Game {
 	public Sound boop4;
 	public Sound clink;
 	public Sound paddle;
+
+	public int numPlayers;
+	public int difficultyLevel;
+
 	//TODO: need sounds for showing/hiding the cannon, launches, and ball collisions
 
 	public NinePatchDrawable buttonBackground;
@@ -80,17 +84,33 @@ public class WackyPong extends Game {
 	public float getVolume() {
 		return prefs.getFloat("volume", 1.0f);
 	}
-	
+
 	public void setVolumeSounds(float v) {
 		volumeSounds = v;
 		prefs.putFloat("volumeSounds", volumeSounds);
 		prefs.flush();
 	}
-	
+
 	public float getVolumeSounds() {
 		return prefs.getFloat("volumeSounds", 1.0f);
 	}
-	
+
+	public void setNumPlayers(int np) {
+		numPlayers = np;
+		prefs.putInteger("numPlayers", numPlayers);
+		prefs.flush();
+	}
+
+	public int getNumPlayers() { return prefs.getInteger("numPlayers", 1); }
+
+	public void setDifficultyLevel(int dl) {
+		difficultyLevel = dl;
+		prefs.putInteger("difficultyLevel", difficultyLevel);
+		prefs.flush();
+	}
+
+	public int getDifficultyLevel() { return prefs.getInteger("difficultyLevel", 2); }
+
 	public void playMusic() {
 		String file = "music/351774__cybermad__pixel-song-2.ogg";
 		if (music==null) {

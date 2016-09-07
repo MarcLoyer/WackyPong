@@ -129,4 +129,6 @@ public class Ball extends Actor {
 		setPosition(bounds.x-10, bounds.y-10);
 		img.setPosition(bounds.x-10, bounds.y-10);
 	}
+
+
 }

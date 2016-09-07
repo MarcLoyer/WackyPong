@@ -17,10 +17,10 @@ import java.util.Iterator;
  */
 /* some ideas for errors:
  *   * Pick a ball to track, and don't change until one of these things happen: ball hits paddle;
- *     ball scores; ball reverses direction. A glancing blow from a hazard or another ball could
- *     slow the ball, making another ball arrive earlier.
+ *     ball scores; ball reverses direction. Another ball collision could make it arrive earlier. <--- didn't make a difference
  *   * Predict the y location of an incoming ball, and don't update until the ball gets very close.
  *     Thus, interactions with the field won't be tracked.
+ *   * Build in a lag before the AI responds? Only update the paddle target every 0.5s or so?
  *   * ...
  *
  *   Finally, I should slow the paddles down further, to make some targets out of reach.
@@ -31,6 +31,21 @@ public class AutoPlayer extends Actor {
     private boolean firing = false;
     public World world;
 
+    private Ball trackedBall;
+
+    private long lagTime = 100L;
+    private Vector3 delayedTarget = new Vector3();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            try {
+                Thread.sleep(lagTime);
+            } catch (InterruptedException e) {
+            }
+            world.paddle[player].moveTo(delayedTarget);
+        }
+    };
+    private Thread thread = null;
+
     public AutoPlayer(int p, int d, World w) {
         super();
         setVisible(false);
@@ -38,6 +53,21 @@ public class AutoPlayer extends Actor {
         player = p;
         difficultyLevel = d;
         world = w;
+
+        trackedBall = null;
+
+        if (difficultyLevel == 3) {
+            lagTime = 200L;
+            world.paddle[player].setSpeed(80);
+        }
+        if (difficultyLevel == 2) {
+            lagTime = 100L;
+            world.paddle[player].setSpeed(100);
+        }
+        if (difficultyLevel == 1) {
+            lagTime = 50L;
+            world.paddle[player].setSpeed(100);
+        }
     }
 
     public AutoPlayer(int p, World w) {
@@ -52,15 +82,38 @@ public class AutoPlayer extends Actor {
         if (myTurnToLaunch()) fireCannon();
     }
 
-    private void movePaddle() {
-        switch (difficultyLevel) {
-            default: // (case 0) perfect mode
-                Ball b = findNearestBall();
-                if (b == null) return;
+    public void restart() {
+        trackedBall = null;
+    }
 
-                Vector3 target = new Vector3(0, b.getY(), 0);
-                world.paddle[player].moveTo(target);
+    private void movePaddle() {
+        Ball b = null;
+
+        switch (difficultyLevel) {
+            case 0: //  perfect mode - no lag at all
+                b = findNearestBall();
+                if (b != null) delayedTarget.y = b.getY();
+                world.paddle[player].moveTo(delayedTarget);
                 break;
+            default:
+                if (thread != null) {
+                    if (thread.isAlive()) return;
+                }
+                thread = new Thread(runnable);
+
+                findNearestBall();
+                thread.start();
+                break;
+        }
+    }
+
+    private boolean isIncoming(Ball b) {
+        if (player==0) {
+            if (b.getX() > WackyPong.SCREENSIZEX/2) return false;
+            return (b.velocity.x < 0);
+        } else {
+            if (b.getX() < WackyPong.SCREENSIZEX/2) return false;
+            return (b.velocity.x > 0);
         }
     }
 
@@ -77,6 +130,12 @@ public class AutoPlayer extends Actor {
             } else {
                 if (bb.velocity.x <= 0) continue;
             }
+            // ignore balls that are on the other side of the field
+            if (player==0) {
+                if (bb.getX() > WackyPong.SCREENSIZEX/2) continue;
+            } else {
+                if (bb.getX() < WackyPong.SCREENSIZEX/2) continue;
+            }
 
             // predict which ball will arrive first
             if (nearest==null) {
@@ -90,6 +149,10 @@ public class AutoPlayer extends Actor {
                 }
             }
         }
+        if (nearest==null)
+            delayedTarget.y = WackyPong.SCREENSIZEY/2;
+        else
+            delayedTarget.y = predictY(nearest, time);
         return nearest;
     }
 
@@ -106,6 +169,14 @@ public class AutoPlayer extends Actor {
         }
 
         return x/v;
+    }
+
+    private float predictY(Ball b, float time) {
+        float py = b.getY();
+        float vy = b.velocity.y;
+
+        // I don't take the edges of the field into account. Oh well, should be good enough.
+        return py + vy*time;
     }
 
     private boolean myTurnToLaunch() {
@@ -131,5 +202,4 @@ public class AutoPlayer extends Actor {
         });
         thread.start();
     }
-
 }

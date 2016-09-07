@@ -44,6 +44,8 @@ public class SplashScreen extends Stage implements Screen {
 	public void show() {
 		game.volume = game.getVolume();
 		game.volumeSounds = game.getVolumeSounds();
+		game.numPlayers = game.getNumPlayers();
+		game.difficultyLevel = game.getDifficultyLevel();
 		
 		game.manager = new AssetManager();
 

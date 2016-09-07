@@ -17,10 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.obduratereptile.wackypong.world.AutoPlayer;
-import com.obduratereptile.wackypong.world.Ball;
-import com.obduratereptile.wackypong.world.Capture;
-import com.obduratereptile.wackypong.world.Spinner;
-import com.obduratereptile.wackypong.world.Warp;
 import com.obduratereptile.wackypong.world.World;
 
 public class GameScreen extends Stage implements Screen {
@@ -39,8 +35,9 @@ public class GameScreen extends Stage implements Screen {
 	public World world;
 	public int savedFieldIndex;
 	public int numPlayers;
+	private AutoPlayer[] autoPlayer = new AutoPlayer[2];
 	
-	public GameScreen(WackyPong g, int numPlayers) {
+	public GameScreen(WackyPong g, int numPlayers, int difficultyLevel) {
 		super(new FitViewport(800,480));
 		Gdx.input.setInputProcessor(this);
 		
@@ -69,12 +66,20 @@ public class GameScreen extends Stage implements Screen {
 		this.gameState = RUNNING;
 		this.numPlayers = numPlayers;
 
-		if (numPlayers<2) addActor(new AutoPlayer(1, 0, world));
-		if (numPlayers<1) addActor(new AutoPlayer(0, 0, world));
+		autoPlayer[0] = null;
+		autoPlayer[1] = null;
+		if (numPlayers<2) {
+			autoPlayer[0] = new AutoPlayer(1, difficultyLevel, world);
+			addActor(autoPlayer[0]);
+		}
+		if (numPlayers<1) {
+			autoPlayer[1] = new AutoPlayer(0, difficultyLevel, world);
+			addActor(autoPlayer[1]);
+		}
 	}
 	
-	public GameScreen(WackyPong g, int numPlayers, int savedFieldIndex) {
-		this(g, numPlayers);
+	public GameScreen(WackyPong g, int numPlayers, int difficultyLevel, int savedFieldIndex) {
+		this(g, numPlayers, difficultyLevel);
 		this.savedFieldIndex = savedFieldIndex;
 		
 		if (savedFieldIndex == -1) {
@@ -181,6 +186,8 @@ public class GameScreen extends Stage implements Screen {
 		game.player1Score = 0;
 		game.player2Score = 0;
 		world.restart();
+		if (autoPlayer[0] != null) autoPlayer[0].restart();
+		if (autoPlayer[1] != null) autoPlayer[1].restart();
 	}
 	
 	/**

@@ -13,7 +13,7 @@ public class Paddle extends Actor {
 	private static float WIDTH = 20f;
 	private static float HEIGHT = 100f;
 	private static float HEIGHTSMALL = 60f;
-	private static float SPEED = 800f;
+	private float speed = 800f;
 	
 	World world;
 	public Sprite img, imgSmall;
@@ -43,6 +43,12 @@ public class Paddle extends Actor {
 
 		this.isShrunk = false;
 		this.target = WackyPong.SCREENSIZEY/2;
+
+		setSpeed(800);
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 	
 	public void shrink() {
@@ -77,7 +83,7 @@ public class Paddle extends Actor {
 	public void update(float deltaTime) {
 		// move towards the target...
 		float y = getY() + getHeight()/2;
-		float dy = SPEED * deltaTime;
+		float dy = speed * deltaTime;
 		
 		if (y>target) {
 			if (dy > (y-target))
