@@ -101,6 +101,7 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 				);
 		numPlayers.setBounds(590, 360, 180, 50);
 		numPlayers.setChecked(game.numPlayers);
+		numPlayersInt = Integer.parseInt(numPlayers.buttonGroup.getChecked().getText().toString());
 		numPlayers.setBackground(game.buttonBackground);
 		addActor(numPlayers);
 		numPlayers.addListener(new ClickListener() {
@@ -121,6 +122,12 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 		);
 		difficultyLevel.setBounds(590, 220, 180, 140);
 		difficultyLevel.setChecked(game.difficultyLevel);
+		String t = difficultyLevel.buttonGroup.getChecked().getText().toString();
+		if (t.equals("You'll lose")) difficultyLevelInt = 0;
+		if (t.equals("You might win")) difficultyLevelInt = 1;
+		if (t.equals("You'll probably win")) difficultyLevelInt = 2;
+		if (t.equals("Enjoy your win :)")) difficultyLevelInt = 3;
+
 		difficultyLevel.setBackground(game.buttonBackground);
 		addActor(difficultyLevel);
 		difficultyLevel.addListener(new ClickListener() {
@@ -132,7 +139,7 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 				if (t.equals("You'll lose")) difficultyLevelInt = 0;
 				if (t.equals("You might win")) difficultyLevelInt = 1;
 				if (t.equals("You'll probably win")) difficultyLevelInt = 2;
-				difficultyLevelInt = 3;
+				if (t.equals("Enjoy your win :)")) difficultyLevelInt = 3;
 			}
 		});
 

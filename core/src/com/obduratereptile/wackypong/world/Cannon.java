@@ -53,12 +53,18 @@ public class Cannon extends Image {
 
 		this.addListener(new ClickListener() {
 			public void clicked(InputEvent e, float x, float y) {
-				// TODO: ignore touch if AI is supposed to launch
+				// ignore touch if AI is supposed to launch
+				World w = ((Cannon)e.getListenerActor()).world;
+				if (w.numPlayers == 0) return;
+				if (w.numPlayers == 1) {
+					if (player == 1) return;
+				}
+
 				fire();
 			}
 		});
 	}
-	
+
 	@Override
 	public void act(float deltaTime) {
 		super.act(deltaTime);
@@ -66,24 +72,38 @@ public class Cannon extends Image {
 	
 	public void hide() {
 		if (isHidden) return;
-		//TODO: play a sound effect
 		isHidden = true;
 		setTouchable(Touchable.disabled);
 		clearActions();
 		addAction(Actions.sequence(
 				Actions.rotateTo(0, 0.5f),
-				Actions.moveTo(positionHide.x, positionHide.y, 1.5f)
+				Actions.parallel(
+						Actions.run(new Runnable() {
+							public void run () {
+								world.game.playRetractCannon();
+							}
+						}),
+						Actions.moveTo(positionHide.x, positionHide.y, 1.5f)
+				)
+
 			));
 	}
 
 	public void show(int player) {
 		if (!isHidden) return;
-		//TODO: play a sound effect
 		direction = 1;
 		this.player = player;
 
 		addAction(Actions.sequence(
-				Actions.after(Actions.moveTo(positionShow.x, positionShow.y, 1.5f)),
+				Actions.after(Actions.delay(0.3f)),
+				Actions.parallel(
+						Actions.run(new Runnable() {
+							public void run () {
+								world.game.playDeployCannon();
+							}
+						}),
+						Actions.moveTo(positionShow.x, positionShow.y, 1.5f)
+				),
 				Actions.run(new Runnable() {
 					public void run () {
 						setTouchable(Touchable.enabled);
@@ -130,9 +150,7 @@ public class Cannon extends Image {
 		Ball b = new Ball(world, p.x, p.y);
 		b.setVelocity(200 * (float) Math.sin(rad), -200 * (float) Math.cos(rad));
 		world.addBall(b);
-
-		//TODO: play a sound effect
-		
+		world.game.playFireBall();
 		hide();
 	}
 

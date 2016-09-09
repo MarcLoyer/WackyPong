@@ -65,7 +65,15 @@ public class SplashScreen extends Stage implements Screen {
 		game.manager.load("sounds/boop4.wav", Sound.class);
 		game.manager.load("sounds/clink.wav", Sound.class);
 		game.manager.load("sounds/paddle.wav", Sound.class);
-		
+		game.manager.load("sounds/score1.wav", Sound.class);
+		game.manager.load("sounds/score2.wav", Sound.class);
+		game.manager.load("sounds/deploy1.wav", Sound.class);
+		game.manager.load("sounds/deploy2.wav", Sound.class);
+		game.manager.load("sounds/launch1.wav", Sound.class);
+		game.manager.load("sounds/launch2.wav", Sound.class);
+		game.manager.load("sounds/launch3.wav", Sound.class);
+		game.manager.load("sounds/launch4.wav", Sound.class);
+
 		game.manager.load("music/351774__cybermad__pixel-song-2.ogg", Music.class);
 		
 		game.batch = new SpriteBatch();
@@ -100,7 +108,7 @@ public class SplashScreen extends Stage implements Screen {
 			// done loading assets, let's move on
 			game.font = game.manager.get("my.fnt", BitmapFont.class);
 			game.atlas = game.manager.get("atlas/textures.pack.atlas", TextureAtlas.class);
-			
+
 			game.blip1 = game.manager.get("sounds/blip1.wav", Sound.class);
 			game.blip2 = game.manager.get("sounds/blip2.wav", Sound.class);
 			game.blip3 = game.manager.get("sounds/blip3.wav", Sound.class);
@@ -110,6 +118,14 @@ public class SplashScreen extends Stage implements Screen {
 			game.boop4 = game.manager.get("sounds/boop4.wav", Sound.class);
 			game.clink = game.manager.get("sounds/clink.wav", Sound.class);
 			game.paddle = game.manager.get("sounds/paddle.wav", Sound.class);
+			game.score1 = game.manager.get("sounds/score1.wav", Sound.class);
+			game.score2 = game.manager.get("sounds/score2.wav", Sound.class);
+			game.deploy1 = game.manager.get("sounds/deploy1.wav", Sound.class);
+			game.deploy2 = game.manager.get("sounds/deploy2.wav", Sound.class);
+			game.launch1 = game.manager.get("sounds/launch1.wav", Sound.class);
+			game.launch2 = game.manager.get("sounds/launch2.wav", Sound.class);
+			game.launch3 = game.manager.get("sounds/launch3.wav", Sound.class);
+			game.launch4 = game.manager.get("sounds/launch4.wav", Sound.class);
 
 			game.buttonBackground = new NinePatchDrawable(game.atlas.createPatch("buttonbackground"));
 			game.buttonBackground2 = new NinePatchDrawable(game.buttonBackground).tint(new Color(0, .8f, 0, 1));

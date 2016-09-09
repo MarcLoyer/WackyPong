@@ -56,7 +56,6 @@ public class Spinner extends Hazard {
 		ball.addToSpin((float)Math.random() * 60 - 30);
 
 		//rotate the velocity vector by a random amount
-		//TODO - this may cause collision captures
 		float degrees = ((float)Math.random() * 2*ANGLE) - ANGLE;
 		ball.velocity.rotate(degrees);
 		ball.traversing = this;

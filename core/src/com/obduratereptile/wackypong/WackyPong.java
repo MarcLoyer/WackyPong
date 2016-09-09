@@ -49,11 +49,17 @@ public class WackyPong extends Game {
 	public Sound boop4;
 	public Sound clink;
 	public Sound paddle;
+	public Sound deploy1;
+	public Sound deploy2;
+	public Sound launch1;
+	public Sound launch2;
+	public Sound launch3;
+	public Sound launch4;
+	public Sound score1;
+	public Sound score2;
 
 	public int numPlayers;
 	public int difficultyLevel;
-
-	//TODO: need sounds for showing/hiding the cannon, launches, and ball collisions
 
 	public NinePatchDrawable buttonBackground;
 	public NinePatchDrawable buttonBackground2;
@@ -150,7 +156,33 @@ public class WackyPong extends Game {
 		case 3: boop4.play(volumeSounds); break;
 		}
 	}
-	
+
+	public void playScore() {
+		int i = (int)(Math.random() * 2);
+		switch (i) {
+			case 0: score1.play(volumeSounds); break;
+			default: score2.play(volumeSounds); break;
+		}
+	}
+
+	public void playDeployCannon() {
+		deploy2.play(volumeSounds);
+	}
+
+	public void playRetractCannon() {
+		deploy1.play(volumeSounds);
+	}
+
+	public void playFireBall() {
+		int i = (int)(Math.random() * 4);
+		switch (i) {
+			case 0: launch1.play(volumeSounds); break;
+			case 1: launch2.play(volumeSounds); break;
+			case 2: launch3.play(volumeSounds); break;
+			case 3: launch4.play(volumeSounds); break;
+		}
+	}
+
 	@Override
 	public void render () {
 		super.render();

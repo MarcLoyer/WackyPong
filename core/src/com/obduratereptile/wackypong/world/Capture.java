@@ -11,7 +11,7 @@ public class Capture extends Hazard {
 	
 	public Capture(World w, float x, float y, float radius) {
 		super(w, x, y, radius);
-		img = world.game.atlas.createSprites("capture"); // TODO: make the arrows flash or something?
+		img = world.game.atlas.createSprites("capture");
 		caught = false;
 		ball = null;
 	}
@@ -43,7 +43,7 @@ public class Capture extends Hazard {
 		
 		world.game.playBoop();
 		if (caught) {
-			this.ball.velocity.x = ball.velocity.x; //TODO: what angle should the ball come out at?
+			this.ball.velocity.x = ball.velocity.x;
 			this.ball.velocity.y = ball.velocity.y;
 			this.ball.traversing = this;
 			this.ball = null;

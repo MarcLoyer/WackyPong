@@ -111,7 +111,7 @@ public class EditorScreen extends Stage implements Screen {
 		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
 		
-		world = new World(game);
+		world = new World(game, 0);
 		addActor(world);
 		world.setBounds(WackyPong.SCREENSIZEX * 0.2f, WackyPong.SCREENSIZEY * 0.2f, WackyPong.SCREENSIZEX, WackyPong.SCREENSIZEY);
 		world.setScale(0.8f);

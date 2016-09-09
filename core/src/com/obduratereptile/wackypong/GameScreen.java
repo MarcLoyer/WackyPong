@@ -47,7 +47,7 @@ public class GameScreen extends Stage implements Screen {
 		camera.setToOrtho(false, WackyPong.SCREENSIZEX, WackyPong.SCREENSIZEY);
 		touchPos = new Vector3();
 		
-		world = new World(game);
+		world = new World(game, numPlayers);
 		addActor(world);
 		world.setBounds(0.0f, 0.0f, WackyPong.SCREENSIZEX, WackyPong.SCREENSIZEY);
 		savedFieldIndex = -1;
@@ -210,7 +210,7 @@ public class GameScreen extends Stage implements Screen {
 					if (numPlayers>1) world.paddle[1].moveTo(touchPos);
 				}
 				
-				//TODO: this is debugging code - it moves the ball to the touch location
+				//Note: this is debugging code - it moves the ball to the touch location
 				//ball.get(0).x = touchPos.x; ball.get(0).y = touchPos.y;
 			}
 		}

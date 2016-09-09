@@ -23,9 +23,11 @@ public class World extends Group {
 	public Paddle[] paddle = new Paddle[2];
 	public Hazard[] hazard;
 	public int numHazards;
+	public int numPlayers;
 	
-	public World(WackyPong game) {
+	public World(WackyPong game, int numPlayers) {
 		this.game = game;
+		this.numPlayers = numPlayers;
 		
 		// initialize the game objects...
 		game.player1Score = 0;
@@ -200,21 +202,21 @@ public class World extends Group {
 		game.renderer.end();
 		
 		batch.begin();
-		//TODO: convert these to image and labels and just addActors().
 		batch.draw(centerlineImage, getX() + getWidth()*getScaleX()/2-1, getY(), 3, getHeight()*getScaleY());
         game.font.draw(batch, ""+game.player1Score, getX() + (getWidth()/2-100)*getScaleX(), getY() + (getHeight()-40)*getScaleY());
         game.font.draw(batch, ""+game.player2Score, getX() + (getWidth()/2+100)*getScaleX(), getY() + (getHeight()-40)*getScaleY());
 	}
 	
 	private void checkGoal(Ball ball) {
-		// TODO: add sound effect for scoring a goal
 		if (ball.bounds.x<(0+ball.bounds.radius)) { // player2 scored!
 			game.player2Score += 1;
+			game.playScore();
 			removeBall(ball);
 			if (noMovingBalls()) launchBall(0);
 					}
 		if (ball.bounds.x>(WackyPong.SCREENSIZEX-ball.bounds.radius)) { // player1 scored!
 			game.player1Score += 1;
+			game.playScore();
 			removeBall(ball);
 			if (noMovingBalls()) launchBall(1);
 		}
@@ -355,11 +357,11 @@ public class World extends Group {
 	
 	public Vector2 genHazardPos() {
 		// place the hazard in a mostly central part of the field, not too close
-		// to any other hazard
+		// to any other hazard and not too close to the cannon
 		float minX = WackyPong.SCREENSIZEX *0.2f;
 		float maxX = WackyPong.SCREENSIZEX *0.8f;
-		float minY = WackyPong.SCREENSIZEY *0.1f;
-		float maxY = WackyPong.SCREENSIZEY *0.9f;
+		float minY = WackyPong.SCREENSIZEY *0.2f;
+		float maxY = WackyPong.SCREENSIZEY *0.7f;
 		Vector2 pos = new Vector2(rand(minX, maxX), rand(minY,maxY));
 		int loopCount = 0;
 		pos.set(rand(minX, maxX), rand(minY,maxY));
