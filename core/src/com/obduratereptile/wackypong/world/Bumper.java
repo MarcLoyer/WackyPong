@@ -1,7 +1,9 @@
 package com.obduratereptile.wackypong.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 
 public class Bumper extends Hazard {
 	public Sprite img;
@@ -36,6 +38,13 @@ public class Bumper extends Hazard {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(img, bounds.x - bounds.radius, bounds.y - bounds.radius, bounds.radius * 2, bounds.radius * 2);
+		batch.draw(img, getX(), getY(), bounds.radius * 2, bounds.radius * 2);
+	}
+
+	@Override
+	protected void positionChanged() {
+		if (bounds==null) return;
+		bounds.x = getX() + bounds.radius;
+		bounds.y = getY() + bounds.radius;
 	}
 }

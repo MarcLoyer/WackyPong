@@ -70,6 +70,7 @@ public class Spinner extends Hazard {
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+		img.setPosition(getX(), getY());
 		img.draw(batch);
 	}
 	
@@ -82,6 +83,15 @@ public class Spinner extends Hazard {
 	@Override
 	public void moveBy(float x, float y) {
 		super.moveBy(x, y);
+		img.setPosition(getX(), getY());
+	}
+
+	@Override
+	protected void positionChanged() {
+		if (bounds==null) return;
+		bounds.x = getX() + bounds.radius;
+		bounds.y = getY() + bounds.radius;
+		if (img==null) return;
 		img.setPosition(getX(), getY());
 	}
 }

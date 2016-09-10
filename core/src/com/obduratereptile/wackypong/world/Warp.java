@@ -77,8 +77,15 @@ public class Warp extends Hazard {
 	public void draw(Batch batch, float parentAlpha) {
 		elapsedTime += Gdx.graphics.getDeltaTime();
 		batch.draw(ani.getKeyFrame(elapsedTime), 
-				bounds.x - bounds.radius, bounds.y - bounds.radius, 
+				getX(), getY(),
 				bounds.radius * 2, bounds.radius * 2);
 		//batch.draw(img.get(0), bounds.x - bounds.radius, bounds.y - bounds.radius, bounds.radius * 2, bounds.radius * 2);
+	}
+
+	@Override
+	protected void positionChanged() {
+		if (bounds==null) return;
+		bounds.x = getX() + bounds.radius;
+		bounds.y = getY() + bounds.radius;
 	}
 }

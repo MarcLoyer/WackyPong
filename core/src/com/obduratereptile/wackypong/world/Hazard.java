@@ -7,8 +7,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class Hazard extends Actor {
-	World world;
-	Circle bounds;
+	public World world;
+	public Circle bounds;
 	
 	public Hazard(World w, float x, float y, float radius) {
 		super();

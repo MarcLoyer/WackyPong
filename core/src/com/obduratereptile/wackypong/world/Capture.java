@@ -68,9 +68,16 @@ public class Capture extends Hazard {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		if (caught) {
-			batch.draw(img.get(1), bounds.x - bounds.radius, bounds.y - bounds.radius, bounds.radius * 2, bounds.radius * 2);
+			batch.draw(img.get(1), getX(), getY(), bounds.radius * 2, bounds.radius * 2);
 		} else {
-			batch.draw(img.get(0), bounds.x - bounds.radius, bounds.y - bounds.radius, bounds.radius * 2, bounds.radius * 2);
+			batch.draw(img.get(0), getX(), getY(), bounds.radius * 2, bounds.radius * 2);
 		}
+	}
+
+	@Override
+	protected void positionChanged() {
+		if (bounds==null) return;
+		bounds.x = getX() + bounds.radius;
+		bounds.y = getY() + bounds.radius;
 	}
 }

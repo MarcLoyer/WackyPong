@@ -77,20 +77,8 @@ public class EditorScreen extends Stage implements Screen {
 		
 		dialog = new SetRadiusDialog("Set radius", skin, "default");
 		
-		btn = new TextButton("Back", skin, "default");
-		btn.setBounds(1 * WackyPong.SCREENSIZEX/4, WackyPong.SCREENSIZEY * 0.05f, 60, 30);
-		btn.addListener(new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				game.clink.play(game.volumeSounds);
-				game.setScreen(new MainMenuScreen(game));
-	            dispose();
-			}
-		});
-		btn.getStyle().up = game.buttonBackground;
-		addActor(btn);
-		
 		btn = new TextButton("Load", skin, "default");
-		btn.setBounds(2 * WackyPong.SCREENSIZEX/4, WackyPong.SCREENSIZEY * 0.05f, 60, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX/4, 30, 60, 30);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
@@ -101,7 +89,7 @@ public class EditorScreen extends Stage implements Screen {
 		addActor(btn);
 		
 		btn = new TextButton("Save", skin, "default");
-		btn.setBounds(3 * WackyPong.SCREENSIZEX/4, WackyPong.SCREENSIZEY * 0.05f, 60, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX/4 + 80, 30, 60, 30);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
@@ -110,7 +98,19 @@ public class EditorScreen extends Stage implements Screen {
 		});
 		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
-		
+
+		btn = new TextButton("Main Menu", skin, "default");
+		btn.setBounds(WackyPong.SCREENSIZEX-130, 30, 100, 30);
+		btn.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				game.clink.play(game.volumeSounds);
+				game.setScreen(new MainMenuScreen(game));
+				dispose();
+			}
+		});
+		btn.getStyle().up = game.buttonBackground;
+		addActor(btn);
+
 		world = new World(game, 0);
 		addActor(world);
 		world.setBounds(WackyPong.SCREENSIZEX * 0.2f, WackyPong.SCREENSIZEY * 0.2f, WackyPong.SCREENSIZEX, WackyPong.SCREENSIZEY);
@@ -191,7 +191,7 @@ public class EditorScreen extends Stage implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0, 0.25f, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		camera.update();

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helptext>
+    <howToPlay>Each player controls their paddle by touching on their half of the screen. When a new ball is available to be launched, a launcher will deployed in the middle-top of the screen; the player launches by ball by touching the launcher. The game may be paused at any time by tapping the pause icon at the middle-bottom.</howToPlay>
+    <howToEdit>In the editor, the various obstacles can be dragged from the palette on the left onto the playing field, and dragged around there as well. Tapping a placed obstacle allows it to be deleted or resized.</howToEdit>
+    <bumperDescription>A basic obstacle that the ball will bounce off of</bumperDescription>
+    <captureDescription>If the ball touches this, it will be held, and a new ball can be launched. The captured ball can be released by hitting the obstacle again</captureDescription>
+    <pinballbumperDescription>The ball will rebound much faster</pinballbumperDescription>
+    <shrinkDescription>Shrinks your opponent's paddle, or unshrinks yours</shrinkDescription>
+    <spinnerDescription>Imparts a spin to the ball, causing it to travel a curved path</spinnerDescription>
+    <warpDescription>Teleports the ball to another of these obstacles</warpDescription>
+    <credits>This libGDX project is a product of ObdurateReptile, copyright 2016.</credits>
+</helptext>

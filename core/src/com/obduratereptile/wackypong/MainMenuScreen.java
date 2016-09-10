@@ -20,7 +20,7 @@ public class MainMenuScreen extends Stage implements Screen {
 
 	public OrthographicCamera camera;
 	public Vector3 touchPos;
-	
+
 	public MainMenuScreen(WackyPong g) {
 		super(new FitViewport(WackyPong.SCREENSIZEX, WackyPong.SCREENSIZEY));
 		Gdx.input.setInputProcessor(this);
@@ -32,12 +32,6 @@ public class MainMenuScreen extends Stage implements Screen {
 		touchPos = new Vector3(0, 0, 0);
 
 		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
-
-		Label lbl = new Label("Wacky Pong", skin, "default");
-		lbl.setBounds(WackyPong.SCREENSIZEX / 2 - 200, WackyPong.SCREENSIZEY - 200, 400, 100);
-		lbl.setAlignment(Align.center);
-		lbl.setFontScale(3.0f);
-		addActor(lbl);
 
 		TextButton btn = new TextButton("Level Editor", skin, "default");
 		btn.setBounds(WackyPong.SCREENSIZEX / 2 - 50, WackyPong.SCREENSIZEY - 300, 100, 30);
@@ -74,6 +68,18 @@ public class MainMenuScreen extends Stage implements Screen {
 		});
 		btn.getStyle().up = game.buttonBackground;
 		addActor(btn);
+
+		btn = new TextButton("How To", skin, "default");
+		btn.setBounds(WackyPong.SCREENSIZEX / 2 - 50, WackyPong.SCREENSIZEY - 400, 100, 30);
+		btn.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				game.clink.play(game.volumeSounds);
+				game.setScreen(new HelpScreen(game));
+				dispose();
+			}
+		});
+		btn.getStyle().up = game.buttonBackground;
+		addActor(btn);
 	}
 
 	@Override
@@ -89,6 +95,10 @@ public class MainMenuScreen extends Stage implements Screen {
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
 		game.renderer.setProjectionMatrix(camera.combined);
+
+		game.batch.begin();
+		game.mainBackground.draw(game.batch);
+		game.batch.end();
 
 		act(delta);
 		draw();

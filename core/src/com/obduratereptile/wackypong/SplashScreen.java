@@ -54,6 +54,7 @@ public class SplashScreen extends Stage implements Screen {
 		
 		// load our textures
 		game.manager.load("atlas/textures.pack.atlas", TextureAtlas.class);
+		game.manager.load("mainbackground.png", Texture.class);
 
 		// load our music and sound effects
 		game.manager.load("sounds/blip1.wav", Sound.class);
@@ -129,7 +130,9 @@ public class SplashScreen extends Stage implements Screen {
 
 			game.buttonBackground = new NinePatchDrawable(game.atlas.createPatch("buttonbackground"));
 			game.buttonBackground2 = new NinePatchDrawable(game.buttonBackground).tint(new Color(0, .8f, 0, 1));
-			
+			game.mainBackground = new Sprite(game.manager.get("mainbackground.png", Texture.class));
+			game.mainBackground.setBounds(0, 0, WackyPong.SCREENSIZEX, WackyPong.SCREENSIZEY);
+
 			// show the splash for at least 5 seconds
 			if ((TimeUtils.millis()-startTime) > 5000) {
 				game.setScreen(new MainMenuScreen(game));
