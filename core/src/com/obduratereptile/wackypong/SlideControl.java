@@ -24,9 +24,9 @@ public class SlideControl extends Table {
 		slider.setValue(0.5f);
 		unmutedValue = slider.getValue();
 		
-		add(label).size(100, 40).fill().right();
+		add(label).size(150, 50).fill().right();
 		add(button).size(40, 40).fill().center().space(10);
-		add(slider).size(160, 40).fill().center();
+		add(slider).size(160, 50).fill().center();
 		
 		button.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {

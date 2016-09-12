@@ -39,7 +39,7 @@ public class MainMenuScreen extends Stage implements Screen {
 		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
 
 		TextButton btn = new TextButton("Level Editor", skin, "default");
-		btn.setBounds(WackyPong.SCREENSIZEX / 2 - 50, WackyPong.SCREENSIZEY - 300, 100, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX / 2 - 90, WackyPong.SCREENSIZEY - 300, 180, 50);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
@@ -52,7 +52,7 @@ public class MainMenuScreen extends Stage implements Screen {
 
 /*
 		btn = new TextButton("Ad", skin, "default");
-		btn.setBounds(WackyPong.SCREENSIZEX / 2 + 150, WackyPong.SCREENSIZEY - 300, 100, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX / 2 + 150, WackyPong.SCREENSIZEY - 300, 180, 50);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.showAd();
@@ -63,7 +63,7 @@ public class MainMenuScreen extends Stage implements Screen {
 */
 
 		btn = new TextButton("Play", skin, "default");
-		btn.setBounds(WackyPong.SCREENSIZEX / 2 - 50, WackyPong.SCREENSIZEY - 350, 100, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX / 2 - 90, WackyPong.SCREENSIZEY - 370, 180, 50);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
@@ -75,7 +75,7 @@ public class MainMenuScreen extends Stage implements Screen {
 		addActor(btn);
 
 		btn = new TextButton("How To", skin, "default");
-		btn.setBounds(WackyPong.SCREENSIZEX / 2 - 50, WackyPong.SCREENSIZEY - 400, 100, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX / 2 - 90, WackyPong.SCREENSIZEY - 440, 180, 50);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);

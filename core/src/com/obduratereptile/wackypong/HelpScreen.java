@@ -128,7 +128,7 @@ public class HelpScreen extends Stage implements Screen {
         addActor(scroll);
 
         btn = new TextButton("Main Menu", skin, "default");
-        btn.setBounds(WackyPong.SCREENSIZEX-130, 30, 100, 30);
+        btn.setBounds(WackyPong.SCREENSIZEX-190, 20, 160, 50);
         btn.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 game.clink.play(game.volumeSounds);

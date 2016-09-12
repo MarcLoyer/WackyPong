@@ -50,13 +50,13 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 		SpriteDrawable emptyfile = game.getSpriteDrawable("emptyfile");
 		
 		levelSelector = new LevelSelector("Select a saved field...", skin, "default", 2, 5, file, emptyfile, game);
-		levelSelector.setPosition(30, WackyPong.SCREENSIZEY-280);
-		levelSelector.setSize(500, 250); // hmm. this is not the right way...
+		levelSelector.setPosition(20, WackyPong.SCREENSIZEY-280);
+		levelSelector.setSize(490, 250); // hmm. this is not the right way...
 		addActor(levelSelector);
 		levelSelector.addListener(this);
 
 		TextButton btn = new TextButton("...or play a generated field", skin, "default");
-		btn.setBounds(30, WackyPong.SCREENSIZEY-310, 500, 30);
+		btn.setBounds(20, WackyPong.SCREENSIZEY-330, 490, 50);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
@@ -71,7 +71,7 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 		SpriteDrawable speaker = game.getSpriteDrawable("Speaker_Icon");
 		
 		soundControl = new SlideControl(skin, "sound f/x", speaker, mute, mute);
-		soundControl.setBounds(30, 80, 330, 45);
+		soundControl.setBounds(20, 70, 410, 50);
 		soundControl.setValue(game.volumeSounds);
 		soundControl.setBackground(game.buttonBackground);
 		addActor(soundControl);
@@ -83,7 +83,7 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 		});
 		
 		musicControl = new SlideControl(skin, "music", speaker, mute, mute);
-		musicControl.setBounds(30, 30, 330, 45);
+		musicControl.setBounds(20, 20, 410, 50);
 		musicControl.setValue(game.volume);
 		musicControl.setBackground(game.buttonBackground);
 		addActor(musicControl);
@@ -99,7 +99,7 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 				// TODO: add "2 (network)" option
 				"2", "1", "0"
 				);
-		numPlayers.setBounds(590, 360, 180, 50);
+		numPlayers.setBounds(520, 360, 270, 80);
 		numPlayers.setChecked(game.numPlayers);
 		numPlayersInt = Integer.parseInt(numPlayers.buttonGroup.getChecked().getText().toString());
 		numPlayers.setBackground(game.buttonBackground);
@@ -120,12 +120,12 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 				"You'll probably win",
 				"Enjoy your win :)"
 		);
-		difficultyLevel.setBounds(590, 220, 180, 140);
+		difficultyLevel.setBounds(520, 160, 270, 200);
 		difficultyLevel.setChecked(game.difficultyLevel);
 		String t = difficultyLevel.buttonGroup.getChecked().getText().toString();
 		if (t.equals("You'll lose")) difficultyLevelInt = 0;
 		if (t.equals("You might win")) difficultyLevelInt = 1;
-		if (t.equals("You'll probably win")) difficultyLevelInt = 2;
+		if (t.equals("You'll prbly win")) difficultyLevelInt = 2;
 		if (t.equals("Enjoy your win :)")) difficultyLevelInt = 3;
 
 		difficultyLevel.setBackground(game.buttonBackground);
@@ -138,14 +138,14 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 				String t = btn.getText().toString();
 				if (t.equals("You'll lose")) difficultyLevelInt = 0;
 				if (t.equals("You might win")) difficultyLevelInt = 1;
-				if (t.equals("You'll probably win")) difficultyLevelInt = 2;
+				if (t.equals("You'll prbly win")) difficultyLevelInt = 2;
 				if (t.equals("Enjoy your win :)")) difficultyLevelInt = 3;
 			}
 		});
 
 
 		btn = new TextButton("Main Menu", skin, "default");
-		btn.setBounds(WackyPong.SCREENSIZEX-130, 30, 100, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX-190, 20, 160, 50);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);

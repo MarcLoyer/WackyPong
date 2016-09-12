@@ -78,7 +78,7 @@ public class EditorScreen extends Stage implements Screen {
 		dialog = new SetRadiusDialog("Set radius", skin, "default");
 		
 		btn = new TextButton("Load", skin, "default");
-		btn.setBounds(WackyPong.SCREENSIZEX/4, 30, 60, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX/4, 20, 90, 50);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
@@ -89,7 +89,7 @@ public class EditorScreen extends Stage implements Screen {
 		addActor(btn);
 		
 		btn = new TextButton("Save", skin, "default");
-		btn.setBounds(WackyPong.SCREENSIZEX/4 + 80, 30, 60, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX/4 + 120, 20, 90, 50);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
@@ -100,7 +100,7 @@ public class EditorScreen extends Stage implements Screen {
 		addActor(btn);
 
 		btn = new TextButton("Main Menu", skin, "default");
-		btn.setBounds(WackyPong.SCREENSIZEX-130, 30, 100, 30);
+		btn.setBounds(WackyPong.SCREENSIZEX-190, 20, 160, 50);
 		btn.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				game.clink.play(game.volumeSounds);
@@ -139,7 +139,7 @@ public class EditorScreen extends Stage implements Screen {
 	private void addToPalette(float x, float y, Hazard h) {
 		Label lbl = null;
 		
-		if (h instanceof Bumper) lbl = new Label("Bumper", skin, "default");
+		/*if (h instanceof Bumper) lbl = new Label("Bumper", skin, "default");
 		if (h instanceof PinballBumper) lbl = new Label("Pinball Bumper", skin, "default");
 		if (h instanceof Capture) lbl = new Label("Capture", skin, "default");
 		if (h instanceof Shrink) lbl = new Label("Shrink", skin, "default");
@@ -149,7 +149,7 @@ public class EditorScreen extends Stage implements Screen {
 		lbl.setSize(100, 20);
 		lbl.setPosition(x-50, y+20);
 		addActor(lbl);
-		
+		*/
 		h.moveTo(x, y);
 		addActor(h);
 		h.addListener(hazardDragListener);
