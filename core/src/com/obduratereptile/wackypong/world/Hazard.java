@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 
 public abstract class Hazard extends Actor {
 	public World world;
@@ -15,6 +16,7 @@ public abstract class Hazard extends Actor {
 		this.world = w;
 		setBounds(x-radius, y-radius, radius*2, radius*2);
 		bounds = new Circle(x, y, radius);
+		listener = new Array<CollisionListener>();
 	}
 
 	public Hazard(World w, float x, float y) {
@@ -37,7 +39,16 @@ public abstract class Hazard extends Actor {
 	
 	public abstract void update(float deltaTime);
 
-	public abstract boolean collision(Ball ball);
+	public boolean collision(Ball ball) {
+		if (!bounds.overlaps(ball.bounds)) return false;
+
+		world.game.playBlip();
+		bounce(ball);
+		for (int i=0; i<listener.size; i++) {
+			listener.get(i).collided(this);
+		}
+		return true;
+	}
 	
 	public float getRadius() {
 		return bounds.radius;
@@ -96,5 +107,15 @@ public abstract class Hazard extends Actor {
 		String clazz = getClass().getSimpleName();
 		
 		return (clazz + "(" + bounds.x + ", " + bounds.y + ", " + bounds.radius + ");");
+	}
+
+	public Array<CollisionListener> listener;
+
+	public void addListener(CollisionListener cl) {
+		listener.add(cl);
+	}
+
+	public interface CollisionListener {
+		public void collided(Hazard h);
 	}
 }

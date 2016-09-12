@@ -63,6 +63,9 @@ public class Warp extends Hazard {
 		if (ball.traversing == this) return false;
 		
 		world.game.playBlip();
+		for (int i=0; i<listener.size; i++) {
+			listener.get(i).collided(this);
+		}
 		// move the ball
 		ball.setBallPosition(sendTo.bounds.x, sendTo.bounds.y);
 		ball.traversing = sendTo;

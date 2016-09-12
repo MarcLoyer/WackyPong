@@ -23,15 +23,6 @@ public class Bumper extends Hazard {
 	}
 	
 	@Override
-	public boolean collision(Ball ball) {
-		if (!bounds.overlaps(ball.bounds)) return false;
-		
-		world.game.playBlip();
-		bounce(ball);
-		return true;
-	}
-	
-	@Override
 	public void update(float deltaTime) {
 		return;
 	}

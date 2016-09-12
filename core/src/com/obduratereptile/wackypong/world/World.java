@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.obduratereptile.wackypong.WackyPong;
 
-public class World extends Group {
+public class World extends Group implements Hazard.CollisionListener {
 	public WackyPong game;
 	
 	public Sprite centerlineImage;
@@ -53,6 +53,7 @@ public class World extends Group {
 		this.hazard[numHazards++] = hazard;
 		
 		addActor(hazard);
+		hazard.addListener(this);
 		return hazard;
 	}
 	
@@ -385,6 +386,11 @@ public class World extends Group {
 			if (dist.len2() < 100.0f*100.0f) return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void collided(Hazard h) {
+		addActor(new CollisionAnimation (this, h.getX()+h.bounds.radius, h.getY()+h.bounds.radius, h.bounds.radius));
 	}
 
 	// Some thoughts on networking the game...

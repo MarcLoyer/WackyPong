@@ -42,6 +42,9 @@ public class Capture extends Hazard {
 		if (ball.traversing == this) return false;
 		
 		world.game.playBoop();
+		for (int i=0; i<listener.size; i++) {
+			listener.get(i).collided(this);
+		}
 		if (caught) {
 			this.ball.velocity.x = ball.velocity.x;
 			this.ball.velocity.y = ball.velocity.y;

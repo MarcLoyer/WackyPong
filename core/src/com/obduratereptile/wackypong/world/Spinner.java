@@ -51,6 +51,9 @@ public class Spinner extends Hazard {
 		
 		world.game.playBlip();
 		bounce(ball);
+		for (int i=0; i<listener.size; i++) {
+			listener.get(i).collided(this);
+		}
 
 		// add spin to the ball to make it curve
 		ball.addToSpin((float)Math.random() * 60 - 30);

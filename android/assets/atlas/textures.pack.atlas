@@ -6,42 +6,42 @@ filter: MipMap,MipMap
 repeat: none
 Mute_Icon
   rotate: false
-  xy: 111, 208
+  xy: 644, 609
   size: 60, 47
   orig: 60, 47
   offset: 0, 0
   index: -1
 Speaker_Icon
   rotate: false
-  xy: 541, 320
+  xy: 706, 609
   size: 60, 47
   orig: 60, 47
   offset: 0, 0
   index: -1
 ball
   rotate: false
-  xy: 897, 460
+  xy: 588, 602
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ban2
   rotate: false
-  xy: 541, 369
+  xy: 2, 2
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 bumper
   rotate: false
-  xy: 7, 613
+  xy: 7, 634
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: -1
 buttonbackground
   rotate: false
-  xy: 953, 589
+  xy: 977, 880
   size: 35, 35
   split: 10, 10, 10, 10
   orig: 35, 35
@@ -56,133 +56,203 @@ cannon
   index: -1
 capture
   rotate: false
-  xy: 7, 435
+  xy: 209, 836
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 0
 capture
   rotate: false
-  xy: 185, 613
+  xy: 387, 836
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 1
+collision
+  rotate: false
+  xy: 7, 812
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
 dottedline
   rotate: false
-  xy: 2, 309
+  xy: 2, 532
   size: 3, 480
   orig: 3, 480
   offset: 0, 0
   index: -1
 emptyfile
   rotate: false
-  xy: 990, 592
+  xy: 68, 34
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 file
   rotate: false
-  xy: 990, 558
+  xy: 469, 472
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+letterA
+  rotate: false
+  xy: 469, 506
+  size: 46, 77
+  orig: 46, 77
+  offset: 0, 0
+  index: -1
+letterC
+  rotate: false
+  xy: 469, 585
+  size: 56, 71
+  orig: 56, 71
+  offset: 0, 0
+  index: -1
+letterG
+  rotate: false
+  xy: 414, 560
+  size: 53, 96
+  orig: 53, 96
+  offset: 0, 0
+  index: -1
+letterK
+  rotate: false
+  xy: 326, 358
+  size: 55, 96
+  orig: 55, 96
+  offset: 0, 0
+  index: -1
+letterN
+  rotate: false
+  xy: 414, 468
+  size: 53, 90
+  orig: 53, 90
+  offset: 0, 0
+  index: -1
+letterO
+  rotate: false
+  xy: 527, 601
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+letterP
+  rotate: false
+  xy: 7, 542
+  size: 43, 90
+  orig: 43, 90
+  offset: 0, 0
+  index: -1
+letterW
+  rotate: false
+  xy: 236, 353
+  size: 88, 101
+  orig: 88, 101
+  offset: 0, 0
+  index: -1
+letterY
+  rotate: false
+  xy: 977, 917
+  size: 44, 95
+  orig: 44, 95
+  offset: 0, 0
+  index: -1
 paddle
   rotate: false
-  xy: 897, 516
+  xy: 2, 257
   size: 54, 273
   orig: 54, 273
   offset: 0, 0
   index: -1
 paddlesmall
   rotate: false
-  xy: 953, 626
+  xy: 921, 849
   size: 54, 163
   orig: 54, 163
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 2, 2
+  xy: 236, 287
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 pinballbumper
   rotate: false
-  xy: 185, 435
+  xy: 565, 836
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: -1
 warp
   rotate: false
-  xy: 185, 435
+  xy: 565, 836
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 0
 shrink
   rotate: false
-  xy: 363, 613
+  xy: 743, 836
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: -1
 spinner
   rotate: false
-  xy: 363, 435
+  xy: 58, 456
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: -1
 warp
   rotate: false
-  xy: 541, 613
+  xy: 58, 278
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 1
 warp
   rotate: false
-  xy: 541, 435
+  xy: 111, 100
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 2
 warp
   rotate: false
-  xy: 719, 613
+  xy: 185, 634
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 3
 warp
   rotate: false
-  xy: 719, 435
+  xy: 363, 658
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 4
 warp
   rotate: false
-  xy: 7, 257
+  xy: 541, 658
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 5
 warp
   rotate: false
-  xy: 185, 257
+  xy: 719, 658
   size: 176, 176
   orig: 176, 176
   offset: 0, 0
   index: 6
 warp
   rotate: false
-  xy: 363, 257
+  xy: 236, 456
   size: 176, 176
   orig: 176, 176
   offset: 0, 0

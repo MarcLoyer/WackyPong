@@ -22,12 +22,11 @@ public class PinballBumper extends Hazard {
 
 	@Override
 	public boolean collision(Ball ball) {
-		if (!bounds.overlaps(ball.bounds)) return false;
-		
-		world.game.playBlip();
-		bounce(ball);
-		ball.speedup(2);
-		return true;
+		if (super.collision(ball)) {
+			ball.speedup(2);
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

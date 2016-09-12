@@ -65,7 +65,6 @@ public class WackyPong extends Game {
 
 	public NinePatchDrawable buttonBackground;
 	public NinePatchDrawable buttonBackground2;
-	public Sprite mainBackground;
 
 	public WackyPong(ActionResolver actionResolver) {
 		this.actionResolver = actionResolver;

@@ -44,18 +44,17 @@ public class Shrink extends Hazard {
 	@Override
 	public boolean collision(Ball ball) {
 		World world = (World)getParent();
-		
-		if (!bounds.overlaps(ball.bounds)) return false;
-		
-		world.game.playBoop();
-		bounce(ball);
-		if (ball.lastHitBy == -1) return true;
-		if (world.paddle[ball.lastHitBy].isShrunk) {
-			world.paddle[ball.lastHitBy].unshrink();
-		} else {
-			world.paddle[(ball.lastHitBy+1)%2].shrink();
+
+		if (super.collision(ball)) {
+			if (ball.lastHitBy == -1) return true;
+			if (world.paddle[ball.lastHitBy].isShrunk) {
+				world.paddle[ball.lastHitBy].unshrink();
+			} else {
+				world.paddle[(ball.lastHitBy+1)%2].shrink();
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	@Override
