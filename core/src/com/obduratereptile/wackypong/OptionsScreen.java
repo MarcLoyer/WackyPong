@@ -117,7 +117,7 @@ public class OptionsScreen extends Stage implements Screen, LevelSelectorListene
 			"AI Difficulty Level", skin, "default", true,
 				"You'll lose",
 				"You might win",
-				"You'll probably win",
+				"You'll prbly win",
 				"Enjoy your win :)"
 		);
 		difficultyLevel.setBounds(520, 160, 270, 200);
